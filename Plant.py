@@ -1,6 +1,9 @@
+import random
+
 class Plant:
     
     def __init__(self,position,max_pollen,cooldown):
+        print(position)
         self.position = position
         self.max_pollen = max_pollen
         self.current_pollen = max_pollen
@@ -8,6 +11,6 @@ class Plant:
         self.timer = cooldown
 
     def draw_plant(self, window, position, cell_width, cell_height, image):
-        x = position[0] * cell_width
-        y = position[1] * cell_height
+        x = position[0] 
+        y = position[1]  
         window.blit(image, (x, y))

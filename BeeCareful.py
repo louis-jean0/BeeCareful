@@ -26,7 +26,7 @@ def main():
     num_bees = 100
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
-        bee = Bee((x,y), (0,0), (0,0))
+        bee = Bee([x,y], [270,270], (0,0))
         bees.append(bee)
 
     # Loading images
