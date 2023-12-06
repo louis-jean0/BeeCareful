@@ -3,7 +3,7 @@ import random
 class Plant:
     
     def __init__(self,position,max_pollen,cooldown):
-        print(position)
+        
         self.position = position
         self.max_pollen = max_pollen
         self.current_pollen = max_pollen

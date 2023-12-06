@@ -3,14 +3,16 @@ import random
 from Hive import Hive
 
 class Bee:
-    def __init__(self, grid_position, pixel_position, home_position):
+    def __init__(self, grid_position, pixel_position, home_position,hive):
         self.grid_position = grid_position  # Position actuelle de l'abeille
         self.pixel_position = pixel_position
         self.home_position = home_position  # Position de la ruche
         self.pollen_capacity = 10 # Capacité maximale de pollen que l'abeille peut transporter
-        self.pollen_collected = 0 # Quantité de pollen actuellement collectée
+        self.pollen_collected = 10 # Quantité de pollen actuellement collectée
         self.target_position = None
-    
+        self.hive = hive
+        self.target_set = False
+
     def set_target(self, target_position):
         self.target_position = target_position
 
@@ -29,8 +31,8 @@ class Bee:
                 direction = (direction[0] / distance, direction[1] / distance)
 
             # Déplacer l'abeille vers la cible
-            self.pixel_position = (self.pixel_position[0] + direction[0] * 0.5, 
-                             self.pixel_position[1] + direction[1] * 0.5)
+            self.pixel_position = (self.pixel_position[0] + direction[0] * 2, 
+                             self.pixel_position[1] + direction[1] * 2)
 
             # Vérifier si l'abeille a atteint la cible (ou est suffisamment proche)
             if distance < 0.5:
@@ -46,16 +48,24 @@ class Bee:
 
     def return_to_hive(self):
         # Retourner à la ruche pour déposer le pollen
-        if self.position != self.home_position:
-            self.move(self.home_position)
+        
+        if not(self.isAtHive()):
+            self.set_target(self.home_position)
+            self.move_towards_target()
         # Déposer le pollen à la ruche et réinitialiser le compteur de pollen
-        self.deposit_pollen()
+        else:
+            self.deposit_pollen(self.hive)
+
+
+    def isAtHive(self):
+        return (abs(self.home_position[0] - self.pixel_position[0]) < 5 and abs(self.home_position[0] - self.pixel_position[0]) < 5)
 
     def deposit_pollen(self,hive):
         # Déposer le pollen à la ruche
         # Cela pourrait impliquer d'augmenter un compteur dans la ruche ou une autre logique
         hive.store_pollen_from_bee(self.pollen_collected)
         self.pollen_collected = 0
+        
 
     def communicate_flower_location(self, flower_location):
         # Communiquer l'emplacement d'une fleur à d'autres abeilles
@@ -65,8 +75,14 @@ class Bee:
     def update(self):
         # Mettre à jour le comportement de l'abeille à chaque tick du jeu
         # Implémenter la logique de décision pour se déplacer, récolter du pollen, etc.
-        self.set_target((3,3))
-        self.move_towards_target()
+        
+        if(self.pollen_collected == self.pollen_capacity):
+            self.return_to_hive()
+        else:
+            if(not(self.target_set)):
+                self.set_target((random.randint(0,1200),random.randint(0,800)))
+                self.target_set = True
+            self.move_towards_target()
         pass
 
     def draw_bee(self, window, cell_width, cell_height, image):

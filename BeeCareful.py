@@ -21,12 +21,16 @@ def main():
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
     game_map.populate_map(10,2)
 
+    # Creating hives
+    hive = Hive((3,3))
+
     # Creating bees
     bees = []
     num_bees = 100
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
-        bee = Bee([x,y], [270,270], (0,0))
+        xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)
+        bee = Bee([x,y], [xZone,yZone], grid_to_pixel((3,3),zone_width,zone_height),hive)
         bees.append(bee)
 
     # Loading images
@@ -42,8 +46,6 @@ def main():
     background_image = pygame.image.load('grass.jpg')
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
-    # Creating hives
-    hive = Hive((3,3))
 
     # Game loop
     running = True
