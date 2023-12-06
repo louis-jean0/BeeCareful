@@ -9,8 +9,8 @@ def main():
     window_height = 600
     window = pygame.display.set_mode((window_width, window_height))
 
-    grid_width = 10  # Nombre de zones en largeur
-    grid_height = 10  # Nombre de zones en hauteur
+    grid_width = 5  # Nombre de zones en largeur
+    grid_height = 5  # Nombre de zones en hauteur
     zone_width = window_width // grid_width
     zone_height = window_height // grid_height
 
@@ -25,7 +25,7 @@ def main():
     num_bees = 100
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
-        bee = Bee((x,y), (0,0), (0,0))
+        bee = Bee([x,y], [270,270], (0,0))
         bees.append(bee)
 
     bee_image = pygame.image.load('abeille.png')

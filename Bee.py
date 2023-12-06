@@ -14,7 +14,8 @@ class Bee:
 
     def move(self, new_position):
         # Mettre à jour la position de l'abeille
-        self.pixel_position = new_position
+        self.pixel_position[0] += new_position[0]
+        self.pixel_position[1] += new_position[1]
 
     def collect_pollen(self, plant):
         # Collecter du pollen d'une plante
@@ -43,8 +44,9 @@ class Bee:
     def update(self):
         # Mettre à jour le comportement de l'abeille à chaque tick du jeu
         # Implémenter la logique de décision pour se déplacer, récolter du pollen, etc.
-        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-        self.move(random.choice(directions))
+        directions = [[0, 1], [1, 0],[-1,0],[0,-1]]
+        choixRandom = random.choice(directions)
+        self.move(choixRandom)
         pass
 
     def draw_bee(self, window, cell_width, cell_height, image):
