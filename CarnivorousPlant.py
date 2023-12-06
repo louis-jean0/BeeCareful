@@ -1,4 +1,7 @@
 from Plant import Plant
 
 class CarnivorousPlant(Plant):
-    pass
+    
+    def __init__(self,range):
+        self.nb_bees_eaten = 0
+        self.range = range
