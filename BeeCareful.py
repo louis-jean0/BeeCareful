@@ -2,25 +2,26 @@ import pygame
 import random
 from Map import Map  # Assurez-vous que Map est correctement importé
 from Bee import Bee
+from utils import *
+from Hive import Hive
 
 def main():
+
+    # Creating window
     pygame.init()
-    window_width = 800
-    window_height = 600
+    window_width = 1200
+    window_height = 800
     window = pygame.display.set_mode((window_width, window_height))
 
-    grid_width = 10  # Nombre de zones en largeur
-    grid_height = 10  # Nombre de zones en hauteur
+    # Creating map
+    grid_width = 5  # Number of zones on x axis
+    grid_height = 5  # Number of zones on y axis
     zone_width = window_width // grid_width
     zone_height = window_height // grid_height
-
-    background_image = pygame.image.load('grass.jpg')
-    background_image = pygame.transform.scale(background_image, (window_width, window_height))
-
-
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
     game_map.populate_map(10,2)
 
+    # Creating bees
     bees = []
     num_bees = 100
     for _ in range(num_bees):
@@ -28,28 +29,40 @@ def main():
         bee = Bee((x,y), (0,0), (0,0))
         bees.append(bee)
 
+    # Loading images
     bee_image = pygame.image.load('abeille.png')
     bee_image = pygame.transform.scale(bee_image, (50,50))
 
     plant_image = pygame.image.load('fleur.png')
     plant_image = pygame.transform.scale(plant_image, (75,75))
 
-    # Boucle de jeu
+    hive_image = pygame.image.load('ruche.png')
+    hive_image = pygame.transform.scale(hive_image,(100,100))
+
+    background_image = pygame.image.load('grass.jpg')
+    background_image = pygame.transform.scale(background_image, (window_width, window_height))
+
+    # Creating hives
+    hive = Hive((3,3))
+
+    # Game loop
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        window.blit(background_image,(0,0))  # Fond noir
-        game_map.draw(window)  # Dessiner la carte
+        window.blit(background_image,(0,0))  # Background image
+        game_map.draw(window)  # Draw zones
         for row in game_map.zones:
             for zone in row:
                 for plant in zone.plants:
-                    plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image)
+                    plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
         for bee in bees:
-            bee.draw_bee(window,zone_width,zone_height,bee_image)
+            bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
             bee.update()
+        hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
+        
         pygame.display.flip()
 
     pygame.quit()

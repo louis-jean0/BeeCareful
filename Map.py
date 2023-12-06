@@ -14,7 +14,7 @@ class Map:
     def populate_map(self, max_plants_per_zone, max_carnivorous_plants_per_zone):
         for row in self.zones:
             for zone in row:
-                num_plants = 5#random.randint(0, max_plants_per_zone)
+                num_plants = random.randint(0, max_plants_per_zone)
                 num_carnivorous_plants = random.randint(0, max_carnivorous_plants_per_zone)
                 zone.populate_zone(num_plants, num_carnivorous_plants)
 

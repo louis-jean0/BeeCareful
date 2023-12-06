@@ -1,4 +1,5 @@
 class Plant:
+    
     def __init__(self,position,max_pollen,cooldown):
         self.position = position
         self.max_pollen = max_pollen
