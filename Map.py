@@ -22,3 +22,10 @@ class Map:
             for x in range(self.grid_width):
                 rect = pygame.Rect(x * self.zone_width, y * self.zone_height, self.zone_width, self.zone_height)
                 pygame.draw.rect(window, (255, 255, 255), rect, 1)  # Dessiner les bordures de chaque zone
+
+    def getPlant(self,position):
+        for row in self.zones:
+            for zone in row:
+                for plant in row:
+                    if plant.position == position:
+                        return plant

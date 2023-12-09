@@ -48,17 +48,16 @@ def main():
 
     # Creating bees
     bees = []
-    num_bees = 1
+
+    num_bees = 50
+
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
         xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)
 
-        
-
         bee = Bee(game_map, [3,3], grid_to_pixel((3,3),zone_width,zone_height), grid_to_pixel((3,3),zone_width,zone_height),hive)
 
         bees.append(bee)
-        hive.add_to_bee_waiting_list_init(bee)
 
     # Loading images
     bee_image = pygame.image.load('abeille.png')
