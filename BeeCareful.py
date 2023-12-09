@@ -21,7 +21,6 @@ def main():
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
     game_map.populate_map(3,2)
 
-
     print(zone_width,"    ",zone_height)
     for row in game_map.zones:
         for zone in row:

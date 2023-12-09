@@ -11,7 +11,6 @@ class Bee:
         self.pollen_collected = 500 # Quantité de pollen actuellement collectée
         self.target_position = None
         self.hive = hive
-        self.target_set = False
         self.go_store = True
 
     def set_target(self, target_position):
@@ -57,7 +56,6 @@ class Bee:
         else:
             self.deposit_pollen(self.hive)
 
-
     def isAtHive(self):
         return (abs(self.home_position[0] - self.pixel_position[0]) < 5 and abs(self.home_position[0] - self.pixel_position[0]) < 5)
 
@@ -84,9 +82,9 @@ class Bee:
         if self.go_store :
             self.return_to_hive()
         else:
-            if(not(self.target_set)):
-                self.set_target((random.randint(0,1200),random.randint(0,800)))
-                self.target_set = True
+            if(self.target_position == None):
+                #self.set_target((random.randint(0,1200),random.randint(0,800)))
+                self.set_target(self.hive.zone_tier_list[0].plants[0].position[0],self.hive.zone_tier_list[0].plants[0].position[1])
             self.move_towards_target()
         pass
 

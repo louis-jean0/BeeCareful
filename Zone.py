@@ -25,14 +25,14 @@ class Zone:
         self.carnivorous_plants = [CarnivorousPlant(2) for _ in range(num_carnivorous_plants)]
         self.has_carnivorous_plant = num_carnivorous_plants > 0
 
-    def getMinX():
-        return minX
+    def getMinX(self):
+        return self.minX
 
-    def getMaxX():
-        return maxX
+    def getMaxX(self):
+        return self.maxX
 
-    def getMinY():
-        return minY
+    def getMinY(self):
+        return self.minY
 
-    def getMaxY():
-        return maxY
+    def getMaxY(self):
+        return self.maxY
