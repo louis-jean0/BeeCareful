@@ -22,7 +22,7 @@ def main():
     zone_width = window_width // grid_width
     zone_height = window_height // grid_height
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
-    game_map.populate_map(10,2)
+    game_map.populate_map(8,2)
 
     nbPlant = 0
     print(zone_width,"    ",zone_height)
