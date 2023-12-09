@@ -26,6 +26,6 @@ class Map:
     def getPlant(self,position):
         for row in self.zones:
             for zone in row:
-                for plant in row:
+                for plant in zone.plants:
                     if plant.position == position:
-                        return plant
+                        return plant 

@@ -46,7 +46,7 @@ def main():
 
     # Creating bees
     bees = []
-    num_bees = 1000
+    num_bees = 2
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
         xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)
