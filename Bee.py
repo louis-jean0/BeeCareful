@@ -66,7 +66,7 @@ class Bee:
         # Cela pourrait impliquer d'augmenter un compteur dans la ruche ou une autre logique
         hive.store_pollen_from_bee(self.pollen_collected)
         self.pollen_collected -= 1
-        print(self.pollen_collected)
+
         if self.pollen_collected == 0:
             self.go_store = False
         
