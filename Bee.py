@@ -17,6 +17,7 @@ class Bee:
         self.hive = hive
         self.go_store = True
         self.direction = False
+        self.is_alive = True
 
     def set_target(self, target_position):
         self.target_position = target_position
@@ -99,6 +100,9 @@ class Bee:
             if(self.pixel_position == plant.position):
                 return True
         return False
+    
+    def die(self):
+        self.is_alive = False
 
     def update(self):
         # Mettre à jour le comportement de l'abeille à chaque tick du jeu

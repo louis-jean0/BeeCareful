@@ -16,13 +16,6 @@ class Hive:
     def add_to_bee_waiting_list_init(self,bee):
         self.bee_waiting_list.append(bee)
 
-    def zone_priority_list_init(self):
-        # initialisation des priorités pour les zones
-        
-        # zone de la ruche en tête de liste
-        self.zone_tier_list.append(self.position)
-        pass
-
     def update(self):
         # Mettre à jour la ruche à chaque tick du jeu
         # Cela pourrait inclure des actions comme la production de nouvelles abeilles
