@@ -1,6 +1,7 @@
 import pygame
 
 from Zone import *
+from utils import *
 
 class Map:
 
@@ -24,8 +25,7 @@ class Map:
                 pygame.draw.rect(window, (255, 255, 255), rect, 1)  # Dessiner les bordures de chaque zone
 
     def getPlant(self,position):
-        for row in self.zones:
-            for zone in row:
-                for plant in zone.plants:
-                    if plant.position == position:
-                        return plant 
+        zone = self.zones[int(position[1])][int(position[0])]
+        listPlants = zone.getPlants()
+
+        return listPlants[0]

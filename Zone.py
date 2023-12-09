@@ -58,3 +58,6 @@ class Zone:
 
     def getMaxY(self):
         return self.maxY
+
+    def getPlants(self):
+        return self.plants
