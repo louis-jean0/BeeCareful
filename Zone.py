@@ -16,55 +16,29 @@ class Zone:
         self.has_carnivorous_plant = False
         self.nbPlante = 0
 
-    def populate_zone(self, num_plants, num_carnivorous_plants):
-        nbPlante = num_plants + num_carnivorous_plants
+    def is_too_close(self, new_position, ecartPlante):
+        for plant in self.plants + self.carnivorous_plants:
+            if abs(plant.position[0] - new_position[0]) < ecartPlante and abs(plant.position[1] - new_position[1]) < ecartPlante:
+                return True
+        return False
+
+    def populate_zone(self, num_plants_total):
         max_pollen = 10
         cooldown = 5
-        print("\n",self.zone_id," : ",num_plants)
-        for i in range(num_plants):
-            rand = random.randint(0,100)
+        ecartPlante = 30
+
+        for _ in range(num_plants_total):
             positionRandom = []
-            good_position = False
-            
-            ecartPlante = 10
-            if rand < 10:
-                ecartPlante = 35
-            while(not(good_position)):
-                good_position = True
-                positionRandom = [random.randint(self.minX,self.maxX-50),random.randint(self.minY,self.maxY-50)]
-                for plant in self.plants:
-                    if plant.position[0] < positionRandom[0] and  positionRandom[0] < plant.position[0]+ecartPlante or plant.position[1] < positionRandom[1] and  positionRandom[1] < plant.position[1]+ecartPlante:
-                        print("1 ",ecartPlante,"     ",i)
-                        good_position = False
-                    if plant.position[0] < positionRandom[0] and  positionRandom[0] < plant.position[0]+ecartPlante or plant.position[1] < positionRandom[1]+ecartPlante and  positionRandom[1]+ecartPlante < plant.position[1]+ecartPlante:
-                        print("2 ",ecartPlante,"     ",i)
-                        good_position = False
-                    if plant.position[0] < positionRandom[0]+ecartPlante and  positionRandom[0]+ecartPlante < plant.position[0]+ecartPlante or plant.position[1] < positionRandom[1] and  positionRandom[1] < plant.position[1]+ecartPlante:
-                        print("3 ",ecartPlante,"     ",i)
-                        good_position = False
-                    if plant.position[0] < positionRandom[0]+ecartPlante and  positionRandom[0]+ecartPlante < plant.position[0]+ecartPlante or plant.position[1] < positionRandom[1]+ecartPlante and  positionRandom[1]+ecartPlante < plant.position[1]+ecartPlante:
-                        print("4 ",ecartPlante,"     ",i)
-                        good_position = False
-                for carni_plant in self.carnivorous_plants:
-                    if carni_plant.position[0] < positionRandom[0] and  positionRandom[0] < carni_plant.position[0]+ecartPlante and carni_plant.position[1] < positionRandom[1] and  positionRandom[1] < carni_plant.position[1]+ecartPlante:
-                        print("5 ",ecartPlante,"     ",i)
-                        good_position = False
-                    if carni_plant.position[0] < positionRandom[0] and  positionRandom[0] < carni_plant.position[0]+ecartPlante and carni_plant.position[1] < positionRandom[1]+ecartPlante and  positionRandom[1]+ecartPlante < carni_plant.position[1]+ecartPlante:
-                        print("6 ",ecartPlante,"     ",i)
-                        good_position = False
-                    if carni_plant.position[0] < positionRandom[0]+ecartPlante and  positionRandom[0]+ecartPlante < carni_plant.position[0]+ecartPlante and carni_plant.position[1] < positionRandom[1] and  positionRandom[1] < carni_plant.position[1]+ecartPlante:
-                        print("7 ",ecartPlante,"     ",i)
-                        good_position = False
-                    if carni_plant.position[0] < positionRandom[0]+ecartPlante and  positionRandom[0]+ecartPlante < carni_plant.position[0]+ecartPlante and carni_plant.position[1]+ecartPlante < positionRandom[1]+ecartPlante and  positionRandom[1] < carni_plant.position[1]+ecartPlante:
-                        print("8 ",ecartPlante,"     ",i)
-                        good_position = False
-            
-            
-            if rand < 10:
-                self.carnivorous_plants.append(CarnivorousPlant(positionRandom) )
+            while True:
+                positionRandom = [random.randint(self.minX, self.maxX-50), random.randint(self.minY, self.maxY-50)]
+                if not self.is_too_close(positionRandom, ecartPlante):
+                    break
+
+            if random.randint(0, 100) < 20:
+                self.carnivorous_plants.append(CarnivorousPlant(positionRandom))
             else:
-                self.plants.append(Plant(positionRandom,max_pollen,cooldown) )
-        
+                self.plants.append(Plant(positionRandom, max_pollen, cooldown))
+
         self.has_carnivorous_plant = len(self.carnivorous_plants) > 0
 
     def getMinX(self):
