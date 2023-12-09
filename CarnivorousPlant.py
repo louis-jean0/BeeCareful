@@ -5,7 +5,7 @@ class CarnivorousPlant():
         self.nb_bees_eaten = 0
 
     def eat_bee(self,bee):
-        
+        bee.die()
         pass
         
     def draw_carni_plant(self, window, position, cell_width, cell_height, image):
