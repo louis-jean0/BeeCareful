@@ -12,17 +12,9 @@ class Hive:
         self.zone_tier_list = []    # Liste de priorité des zones
         self.bee_zone_list = []     # Liste de tuple (bee,zone,time) associant une abeille, sa zone ainsi que le temps qu'elle met, incrémenter dans updates()
         self.hive_map = Map(grid_width, grid_height, zone_width, zone_height)
-        
 
     def add_to_bee_waiting_list_init(self,bee):
         self.bee_waiting_list.append(bee)
-
-    def zone_priority_list_init(self):
-        # initialisation des priorités pour les zones
-        
-        # zone de la ruche en tête de liste
-        self.zone_tier_list.append(self.position)
-        pass
 
     def update(self):
         # Mettre à jour la ruche à chaque tick du jeu

@@ -3,6 +3,8 @@ import pygame
 
 from Hive import Hive
 from utils import *
+from Map import Map
+from utils import *
 
 class Bee:
     def __init__(self, map, grid_position, pixel_position, home_position,hive):
@@ -16,7 +18,6 @@ class Bee:
         self.hive = hive
         self.go_store = True
         self.direction = False
-        self.plant = None
 
     def set_target(self, target_position):
         self.target_position = target_position
@@ -58,6 +59,8 @@ class Bee:
             pollen_to_collect = min(plant.current_pollen, self.pollen_capacity - self.pollen_collected)
             self.pollen_collected += pollen_to_collect
             plant.current_pollen -= pollen_to_collect
+        if self.pollen_collected == self.pollen_capacity:
+            self.return_to_hive()
 
     def return_to_hive(self):
         # Retourner à la ruche pour déposer le pollen
@@ -90,6 +93,20 @@ class Bee:
         # Cela pourrait impliquer de mettre à jour une sorte de mémoire partagée ou de carte
         pass
 
+    def isOnPlant(self):
+        current_zone = pixel_to_grid(self.pixel_position,self.map.zone_width,self.map.zone_height)
+        zoneX = int(current_zone[0])
+        zoneY = int(current_zone[1])
+        print(zoneX)
+        print(zoneY)
+        for plant in self.map.zones[zoneX][zoneY].plants:
+            if(self.pixel_position == plant.position):
+                return True
+        return False
+    
+    def die(self):
+        self.is_alive = False
+
     def update(self):
         # Mettre à jour le comportement de l'abeille à chaque tick du jeu
         # Implémenter la logique de décision pour se déplacer, récolter du pollen, etc.
@@ -116,10 +133,6 @@ class Bee:
                         self.set_target(self.plant.get_position())
                     else:
                         self.go_store = True
-
-        
-        
-        pass
 
     def draw_bee(self, window, cell_width, cell_height, image):
         x = self.pixel_position[0]

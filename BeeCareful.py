@@ -78,7 +78,6 @@ def main():
     background_image = pygame.image.load('grass.jpg')
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
-    hive.zone_priority_list_init()
     # Game loop
     running = True
     while running:
@@ -98,14 +97,14 @@ def main():
                 for carni_plant in zone.carnivorous_plants:
                     carni_plant.draw_carni_plant(window,carni_plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
         for bee in bees:
-            
-            if not(bee.isAtHive()):
-                bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
-            else:
-                hive.give_action()
+            if(bee.is_alive):
+                if not(bee.isAtHive()):
+                    bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
+                else:
+                    hive.give_action()
             bee.update()
         hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
-        
+
         pygame.display.flip()
 
     pygame.quit()
