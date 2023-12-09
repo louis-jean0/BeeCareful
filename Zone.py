@@ -21,9 +21,13 @@ class Zone:
         max_pollen = 10
         cooldown = 5
         for i in range(num_plants):
-            self.plants.append(Plant([random.randint(self.minX,self.maxX),random.randint(self.minY,self.maxY)],max_pollen,cooldown) )
-        self.carnivorous_plants = [CarnivorousPlant(2) for _ in range(num_carnivorous_plants)]
-        self.has_carnivorous_plant = num_carnivorous_plants > 0
+            rand = random.randint(0,100)
+            if rand < 20:
+                self.carnivorous_plants.append(CarnivorousPlant([random.randint(self.minX+5,self.maxX-5),random.randint(self.minY+2,self.maxY)-2]) )
+            else:
+                self.plants.append(Plant([random.randint(self.minX+5,self.maxX-5),random.randint(self.minY+2,self.maxY)-2],max_pollen,cooldown) )
+        
+        self.has_carnivorous_plant = len(self.carnivorous_plants) > 0
 
     def getMinX():
         return minX

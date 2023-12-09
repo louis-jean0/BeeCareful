@@ -19,15 +19,20 @@ def main():
     zone_width = window_width // grid_width
     zone_height = window_height // grid_height
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
-    game_map.populate_map(3,2)
+    game_map.populate_map(10,2)
 
-
+    nbPlant = 0
     print(zone_width,"    ",zone_height)
     for row in game_map.zones:
         for zone in row:
             print("\nzone = ",zone.zone_id)
             for plant in zone.plants:
-                print(plant.position)
+                nbPlant += 1
+                print("plants : ",plant.position,"    ",zone.minX < plant.position[0] and plant.position[0] < zone.maxX,"     ",zone.minY < plant.position[1] and plant.position[1] < zone.maxY)
+            for carnivorous_plants in zone.carnivorous_plants:
+                nbPlant += 1
+                print("carni_plants : ",carnivorous_plants.position,"    ",zone.minX < carnivorous_plants.position[0] and carnivorous_plants.position[0] < zone.maxX,"     ",zone.minY < carnivorous_plants.position[1] and carnivorous_plants.position[1] < zone.maxY)
+    print(nbPlant)
 
     # Creating hives
     hive = Hive((3,3))
@@ -47,6 +52,9 @@ def main():
 
     plant_image = pygame.image.load('fleur.png')
     plant_image = pygame.transform.scale(plant_image, (75,75))
+    
+    carni_plant_image = pygame.image.load('plantecarnivore.png')
+    carni_plant_image = pygame.transform.scale(carni_plant_image, (75,75))
 
     hive_image = pygame.image.load('ruche.png')
     hive_image = pygame.transform.scale(hive_image,(100,100))
@@ -68,6 +76,8 @@ def main():
             for zone in row:
                 for plant in zone.plants:
                     plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
+                for carni_plant in zone.carnivorous_plants:
+                    carni_plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
         for bee in bees:
             if not(bee.isAtHive()):
                 bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
