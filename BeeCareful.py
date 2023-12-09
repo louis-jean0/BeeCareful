@@ -49,7 +49,7 @@ def main():
     # Creating bees
     bees = []
 
-    num_bees = 1
+    num_bees = 10
 
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)

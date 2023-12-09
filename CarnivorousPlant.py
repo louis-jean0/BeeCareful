@@ -10,3 +10,6 @@ class CarnivorousPlant():
         x = position[0] 
         y = position[1]  
         window.blit(image, (x, y))
+
+    def get_position(self):
+        return self.position

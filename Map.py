@@ -29,3 +29,7 @@ class Map:
         listPlants = zone.getPlants()
 
         return listPlants[0]
+
+    def getNbPlantZone(self,position):
+        zone = self.zones[int(position[1])][int(position[0])]
+        return zone.getNbPlant()

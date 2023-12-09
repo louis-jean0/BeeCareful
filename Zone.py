@@ -13,6 +13,7 @@ class Zone:
         self.height = height
         self.plants = []
         self.carnivorous_plants = []
+        self.listPlantTotal = []
         self.has_carnivorous_plant = False
         self.nbPlante = 1
         self.nbCarniPlante = 0
@@ -26,6 +27,7 @@ class Zone:
         return False
 
     def populate_zone(self, num_plants_total):
+        self.nbPlante = num_plants_total
         max_pollen = 10
         cooldown = 5
         ecartPlante = 30
@@ -39,8 +41,10 @@ class Zone:
 
             if random.randint(0, 100) < 20:
                 self.carnivorous_plants.append(CarnivorousPlant(positionRandom))
+                self.listPlantTotal.append(CarnivorousPlant(positionRandom))   
             else:
                 self.plants.append(Plant(positionRandom, max_pollen, cooldown))
+                self.listPlantTotal.append(Plant(positionRandom, max_pollen, cooldown))
 
         self.has_carnivorous_plant = len(self.carnivorous_plants) > 0
 
@@ -60,4 +64,7 @@ class Zone:
         return self.maxY
 
     def getPlants(self):
-        return self.plants
+        return self.listPlantTotal
+    
+    def getNbPlant(self):
+        return self.nbPlante

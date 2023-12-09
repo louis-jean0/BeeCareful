@@ -111,7 +111,8 @@ class Bee:
                         self.go_store = True
                 else:
                     self.plant = self.map.getPlant(self.grid_position)
-                    if self.plant:
+                    print(self.map.getNbPlantZone(self.grid_position))
+                    if self.map.getNbPlantZone(self.grid_position) > 0:
                         self.set_target(self.plant.get_position())
                     else:
                         self.go_store = True
