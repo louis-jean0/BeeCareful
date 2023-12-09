@@ -24,19 +24,19 @@ def main():
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
     game_map.populate_map(10)
 
-    nbPlant = 0
-    print(zone_width,"    ",zone_height)
+  #  nbPlant = 0
+   # print(zone_width,"    ",zone_height)
     for row in game_map.zones:
         for zone in row:
             hive.zone_tier_list.append(zone)
-            print("\nzone = ",zone.zone_id)
-            for plant in zone.plants:
-                nbPlant += 1
-                print("plants : ",plant.position,"    ",zone.minX < plant.position[0] and plant.position[0] < zone.maxX,"     ",zone.minY < plant.position[1] and plant.position[1] < zone.maxY)
-            for carnivorous_plants in zone.carnivorous_plants:
-                nbPlant += 1
-                print("carni_plants : ",carnivorous_plants.position,"    ",zone.minX < carnivorous_plants.position[0] and carnivorous_plants.position[0] < zone.maxX,"     ",zone.minY < carnivorous_plants.position[1] and carnivorous_plants.position[1] < zone.maxY)
-    print(nbPlant)
+  #          print("\nzone = ",zone.zone_id)
+   #         for plant in zone.plants:
+    #            nbPlant += 1
+    #            print("plants : ",plant.position,"    ",zone.minX < plant.position[0] and plant.position[0] < zone.maxX,"     ",zone.minY < plant.position[1] and plant.position[1] < zone.maxY)
+     #       for carnivorous_plants in zone.carnivorous_plants:
+      #          nbPlant += 1
+       #         print("carni_plants : ",carnivorous_plants.position,"    ",zone.minX < carnivorous_plants.position[0] and carnivorous_plants.position[0] < zone.maxX,"     ",zone.minY < carnivorous_plants.position[1] and carnivorous_plants.position[1] < zone.maxY)
+ #   print(nbPlant)
 
 
 
@@ -46,7 +46,7 @@ def main():
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
         xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)
-        bee = Bee([x,y], [xZone,yZone], grid_to_pixel((3,3),zone_width,zone_height),hive)
+        bee = Bee([3,3], grid_to_pixel((3,3),zone_width,zone_height), grid_to_pixel((3,3),zone_width,zone_height),hive)
         bees.append(bee)
         hive.add_to_bee_waiting_list_init(bee)
 
@@ -89,8 +89,10 @@ def main():
                 for carni_plant in zone.carnivorous_plants:
                     carni_plant.draw_carni_plant(window,carni_plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
         for bee in bees:
+            
             if not(bee.isAtHive()):
                 bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
+            else:
                 hive.give_action()
             bee.update()
         hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
