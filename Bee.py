@@ -1,4 +1,5 @@
 import random
+import pygame
 
 from Hive import Hive
 from utils import *
@@ -15,6 +16,7 @@ class Bee:
         self.target_position = None
         self.hive = hive
         self.go_store = True
+        self.direction = False
 
     def set_target(self, target_position):
         self.target_position = target_position
@@ -28,6 +30,11 @@ class Bee:
             # Calculer le vecteur de direction vers la cible
             direction = (self.target_position[0] - self.pixel_position[0], self.target_position[1] - self.pixel_position[1])
             distance = (direction[0]**2 + direction[1]**2)**0.5
+
+            if direction[0] <= 0:
+                self.direction = False
+            else:
+                self.direction = True
 
             # Normaliser le vecteur de direction
             if distance > 0:
@@ -64,6 +71,9 @@ class Bee:
     def isAtHive(self):
         return (abs(self.home_position[0] - self.pixel_position[0]) < 5 and abs(self.home_position[0] - self.pixel_position[0]) < 5)
 
+    def isAtTarget(self):
+        return (abs(self.target_position[0] - self.pixel_position[0]) < 5 and abs(self.target_position[0] - self.pixel_position[0]) < 5)
+
     def deposit_pollen(self,hive):
         # Déposer le pollen à la ruche
         # Cela pourrait impliquer d'augmenter un compteur dans la ruche ou une autre logique
@@ -99,13 +109,16 @@ class Bee:
         else:
             #if(self.target_position == None):
                 #self.set_target((random.randint(0,1200),random.randint(0,800)))
-            if self.isOnPlant():
-                print("Je suis sur la plante")
-                self.collect_pollen(plant)
-            else:
+            #self.map.getPlant(self.target_position)
+            if not(self.isAtTarget()):
                 self.move_towards_target()
+            else:
+                self.go_store = True
 
     def draw_bee(self, window, cell_width, cell_height, image):
         x = self.pixel_position[0]
         y = self.pixel_position[1] 
-        window.blit(image, (x, y))
+
+        img_with_flip = pygame.transform.flip(image, self.direction, False)
+
+        window.blit(img_with_flip, (x, y))
