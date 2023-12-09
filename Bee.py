@@ -123,7 +123,10 @@ class Bee:
                 self.move_towards_target()
             else:
                 if self.plant:
-                    self.pollen_collected += self.plant.get_pollen()
+                    if isinstance(self.plant,CarnivorousPlant):
+                        self.plant.eat_bee(self)
+                    else:
+                        self.pollen_collected += self.plant.get_pollen()
                     if self.pollen_collected == self.pollen_capacity:
                         self.go_store = True
                 else:
