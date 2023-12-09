@@ -1,7 +1,12 @@
-from Plant import Plant
 
-class CarnivorousPlant(Plant):
+
+class CarnivorousPlant():
     
-    def __init__(self,range):
+    def __init__(self,position):
+        self.position = position
         self.nb_bees_eaten = 0
-        self.range = range
+        
+    def draw_carni_plant(self, window, position, cell_width, cell_height, image):
+        x = position[0] 
+        y = position[1]  
+        window.blit(image, (x, y))
