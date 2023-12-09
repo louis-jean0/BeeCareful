@@ -133,9 +133,9 @@ class Bee:
                     if self.pollen_collected == self.pollen_capacity:
                         self.go_store = True
                 else:
-                    self.plant = self.map.getPlant(self.grid_position)
-                    print(self.map.getNbPlantZone(self.grid_position))
+                    
                     if self.map.getNbPlantZone(self.grid_position) > 0:
+                        self.plant = self.map.getPlant(self.grid_position)
                         self.set_target(self.plant.get_position())
                     else:
                         self.go_store = True
