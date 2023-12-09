@@ -8,14 +8,21 @@ class Hive:
         self.zone_tier_list = []    # Liste de priorité des zones
         self.bee_zone_list = []     # Liste de tuple (bee,zone,time) associant une abeille, sa zone ainsi que le temps qu'elle met, incrémenter dans updates()
 
-    def store_pollen_from_bee(self, amount):
-        # Ajouter du pollen au stockage, sans dépasser la capacité
-        self.stored_pollen += amount
+    def zone_priority_list_init(self):
+        # initialisation des priorités pour les zones
+        
+        # zone de la ruche en tête de liste
+        self.zone_tier_list.append(position)
+        pass
 
     def update(self):
         # Mettre à jour la ruche à chaque tick du jeu
         # Cela pourrait inclure des actions comme la production de nouvelles abeilles
         pass
+        
+    def store_pollen_from_bee(self, amount):
+        # Ajouter du pollen au stockage, sans dépasser la capacité
+        self.stored_pollen += amount
 
     def wait_order(self,bee):
         # Fonction appelé par une abeille lorsqu'elle attend une action
@@ -23,6 +30,8 @@ class Hive:
         
     def give_action(self):
         # Donne une action à la 1ère abeille dans la liste
+        pass
+     
 
     def draw_hive(self, window, position, zone_width, zone_height, image):
         x = position[0] * zone_width
