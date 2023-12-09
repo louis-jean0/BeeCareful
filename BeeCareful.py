@@ -77,7 +77,7 @@ def main():
                 for plant in zone.plants:
                     plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
                 for carni_plant in zone.carnivorous_plants:
-                    carni_plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
+                    carni_plant.draw_carni_plant(window,carni_plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
         for bee in bees:
             if not(bee.isAtHive()):
                 bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
