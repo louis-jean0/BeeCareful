@@ -13,6 +13,9 @@ def main():
     window_height = 800
     window = pygame.display.set_mode((window_width, window_height))
 
+    # Creating hives
+    hive = Hive((3,3))
+
     # Creating map
     grid_width = 5  # Number of zones on x axis
     grid_height = 5  # Number of zones on y axis
@@ -25,6 +28,7 @@ def main():
     print(zone_width,"    ",zone_height)
     for row in game_map.zones:
         for zone in row:
+            hive.zone_tier_list.append(zone)
             print("\nzone = ",zone.zone_id)
             for plant in zone.plants:
                 nbPlant += 1
@@ -34,17 +38,17 @@ def main():
                 print("carni_plants : ",carnivorous_plants.position,"    ",zone.minX < carnivorous_plants.position[0] and carnivorous_plants.position[0] < zone.maxX,"     ",zone.minY < carnivorous_plants.position[1] and carnivorous_plants.position[1] < zone.maxY)
     print(nbPlant)
 
-    # Creating hives
-    hive = Hive((3,3))
+
 
     # Creating bees
     bees = []
-    num_bees = 1
+    num_bees = 10
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
         xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)
         bee = Bee([x,y], [xZone,yZone], grid_to_pixel((3,3),zone_width,zone_height),hive)
         bees.append(bee)
+        hive.add_to_bee_waiting_list_init(bee)
 
     # Loading images
     bee_image = pygame.image.load('abeille.png')
@@ -62,7 +66,7 @@ def main():
     background_image = pygame.image.load('grass.jpg')
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
-
+    hive.zone_priority_list_init()
     # Game loop
     running = True
     while running:
@@ -81,6 +85,7 @@ def main():
         for bee in bees:
             if not(bee.isAtHive()):
                 bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
+                hive.give_action()
             bee.update()
         hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
         

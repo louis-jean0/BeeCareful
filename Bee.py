@@ -82,10 +82,10 @@ class Bee:
         if self.go_store :
             self.return_to_hive()
         else:
-            if(self.target_position == None):
+            #if(self.target_position == None):
                 #self.set_target((random.randint(0,1200),random.randint(0,800)))
-                self.set_target(self.hive.zone_tier_list[0].plants[0].position[0],self.hive.zone_tier_list[0].plants[0].position[1])
             self.move_towards_target()
+        
         pass
 
     def draw_bee(self, window, cell_width, cell_height, image):
