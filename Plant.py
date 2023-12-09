@@ -29,3 +29,6 @@ class Plant:
         if self.pollen >= self.max_pollen:
             self.pollen = max_pollen
             self.onCooldown = False
+
+    def isOnCD(self):
+        return self.onCooldown
