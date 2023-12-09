@@ -18,17 +18,21 @@ class Plant:
 
     def get_pollen(self):
         speed = 1 # vitesse a laquelle le pollen est recupere
-        self.pollen -= speed
-        if self.pollen <= 0:
+        print(self.current_pollen)
+        self.current_pollen -= speed
+        if self.current_pollen <= 0:
             self.onCooldown = True
         return speed # retourne le pollen pris
 
     def restaure(self):
         speed = 1 # vitesse a laquelle le pollen est restaure
-        self.pollen += speed
-        if self.pollen >= self.max_pollen:
-            self.pollen = max_pollen
+        self.current_pollen += speed
+        if self.current_pollen >= self.max_pollen:
+            self.current_pollen = max_pollen
             self.onCooldown = False
 
     def isOnCD(self):
         return self.onCooldown
+
+    def get_position(self):
+        return self.position

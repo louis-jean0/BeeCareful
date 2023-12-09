@@ -2,6 +2,7 @@ import random
 import pygame
 
 from Hive import Hive
+from utils import *
 
 class Bee:
     def __init__(self, map, grid_position, pixel_position, home_position,hive):
@@ -15,6 +16,7 @@ class Bee:
         self.hive = hive
         self.go_store = True
         self.direction = False
+        self.plant = None
 
     def set_target(self, target_position):
         self.target_position = target_position
@@ -34,6 +36,7 @@ class Bee:
             else:
                 self.direction = True
 
+
             # Normaliser le vecteur de direction
             if distance > 0:
                 direction = (direction[0] / distance, direction[1] / distance)
@@ -46,6 +49,8 @@ class Bee:
             if distance < 0.5:
                 self.position = self.target_position
                 self.target_position = None
+            
+            self.grid_position = pixel_to_grid(self.pixel_position,self.map.zone_width,self.map.zone_height)
 
     def collect_pollen(self, plant):
         # Collecter du pollen d'une plante
@@ -65,10 +70,10 @@ class Bee:
             self.deposit_pollen(self.hive)
 
     def isAtHive(self):
-        return (abs(self.home_position[0] - self.pixel_position[0]) < 5 and abs(self.home_position[0] - self.pixel_position[0]) < 5)
+        return (abs(self.home_position[0] - self.pixel_position[0]) < 5 and abs(self.home_position[1] - self.pixel_position[1]) < 5)
 
     def isAtTarget(self):
-        return (abs(self.target_position[0] - self.pixel_position[0]) < 5 and abs(self.target_position[0] - self.pixel_position[0]) < 5)
+        return (abs(self.target_position[0] - self.pixel_position[0]) < 5 and abs(self.target_position[1] - self.pixel_position[1]) < 5)
 
     def deposit_pollen(self,hive):
         # Déposer le pollen à la ruche
@@ -91,14 +96,25 @@ class Bee:
         
         if self.go_store:
             self.return_to_hive()
+            self.plant = None
         else:
             #if(self.target_position == None):
                 #self.set_target((random.randint(0,1200),random.randint(0,800)))
             #self.map.getPlant(self.target_position)
+
             if not(self.isAtTarget()):
                 self.move_towards_target()
             else:
-                self.go_store = True
+                if self.plant:
+                    self.pollen_collected += self.plant.get_pollen()
+                    if self.pollen_collected == self.pollen_capacity:
+                        self.go_store = True
+                else:
+                    self.plant = self.map.getPlant(self.grid_position)
+                    if self.plant:
+                        self.set_target(self.plant.get_position())
+                    else:
+                        self.go_store = True
 
         
         
