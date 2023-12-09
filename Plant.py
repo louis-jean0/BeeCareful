@@ -18,6 +18,7 @@ class Plant:
 
     def get_pollen(self):
         speed = 1 # vitesse a laquelle le pollen est recupere
+        print(self.current_pollen)
         self.current_pollen -= speed
         if self.current_pollen <= 0:
             self.onCooldown = True

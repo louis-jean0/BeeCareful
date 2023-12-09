@@ -49,7 +49,7 @@ def main():
     # Creating bees
     bees = []
 
-    num_bees = 10
+    num_bees = 2
 
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
@@ -71,6 +71,9 @@ def main():
 
     carni_plant_image = pygame.image.load('plantecarnivore.png')
     carni_plant_image = pygame.transform.scale(carni_plant_image, (75,75))
+
+    carni_plant_image_crous = pygame.image.load('plantecarnivoreSadgeCrous.png')
+    carni_plant_image_crous = pygame.transform.scale(carni_plant_image, (75,75))
 
     hive_image = pygame.image.load('ruche.png')
     hive_image = pygame.transform.scale(hive_image,(100,100))
@@ -95,7 +98,10 @@ def main():
                     else:
                         plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image_morte)
                 for carni_plant in zone.carnivorous_plants:
-                    carni_plant.draw_carni_plant(window,carni_plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
+                    if carni_plant.get_isEating():
+                        carni_plant.draw_carni_plant(window,carni_plant.position,zone_width,zone_height,carni_plant_image_crous) # Draw plants
+                    else:
+                        carni_plant.draw_carni_plant(window,carni_plant.position,zone_width,zone_height,carni_plant_image_crous) # Draw plants
         for bee in bees:
             if(bee.is_alive):
                 if not(bee.isAtHive()):
