@@ -18,6 +18,7 @@ class Bee:
         self.hive = hive
         self.go_store = True
         self.direction = False
+        self.is_alive = True
 
     def set_target(self, target_position):
         self.target_position = target_position
