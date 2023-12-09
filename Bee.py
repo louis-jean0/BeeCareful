@@ -7,11 +7,12 @@ class Bee:
         self.grid_position = grid_position  # Position actuelle de l'abeille
         self.pixel_position = pixel_position
         self.home_position = home_position  # Position de la ruche
-        self.pollen_capacity = 10 # Capacité maximale de pollen que l'abeille peut transporter
-        self.pollen_collected = 10 # Quantité de pollen actuellement collectée
+        self.pollen_capacity = 500 # Capacité maximale de pollen que l'abeille peut transporter
+        self.pollen_collected = 500 # Quantité de pollen actuellement collectée
         self.target_position = None
         self.hive = hive
         self.target_set = False
+        self.go_store = True
 
     def set_target(self, target_position):
         self.target_position = target_position
@@ -64,7 +65,11 @@ class Bee:
         # Déposer le pollen à la ruche
         # Cela pourrait impliquer d'augmenter un compteur dans la ruche ou une autre logique
         hive.store_pollen_from_bee(self.pollen_collected)
-        self.pollen_collected = 0
+        self.pollen_collected -= 1
+        print(self.pollen_collected)
+        if self.pollen_collected == 0:
+            self.go_store = False
+        
         
 
     def communicate_flower_location(self, flower_location):
@@ -76,7 +81,7 @@ class Bee:
         # Mettre à jour le comportement de l'abeille à chaque tick du jeu
         # Implémenter la logique de décision pour se déplacer, récolter du pollen, etc.
         
-        if(self.pollen_collected == self.pollen_capacity):
+        if self.go_store :
             self.return_to_hive()
         else:
             if(not(self.target_set)):

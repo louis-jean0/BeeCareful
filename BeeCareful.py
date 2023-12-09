@@ -61,7 +61,8 @@ def main():
                 for plant in zone.plants:
                     plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
         for bee in bees:
-            bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
+            if not(bee.isAtHive()):
+                bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
             bee.update()
         hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
         
