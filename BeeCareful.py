@@ -19,14 +19,22 @@ def main():
     zone_width = window_width // grid_width
     zone_height = window_height // grid_height
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
-    game_map.populate_map(10,2)
+    game_map.populate_map(3,2)
+
+
+    print(zone_width,"    ",zone_height)
+    for row in game_map.zones:
+        for zone in row:
+            print("\nzone = ",zone.zone_id)
+            for plant in zone.plants:
+                print(plant.position)
 
     # Creating hives
     hive = Hive((3,3))
 
     # Creating bees
     bees = []
-    num_bees = 100
+    num_bees = 1
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
         xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)

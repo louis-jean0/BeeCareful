@@ -4,6 +4,7 @@ from CarnivorousPlant import CarnivorousPlant
 
 class Zone:
     def __init__(self,width,height,x,y):
+        self.zone_id = (x,y)
         self.minX = width * x
         self.maxX = (width * (x+1))-1
         self.minY = height * y
