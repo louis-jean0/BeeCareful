@@ -13,8 +13,7 @@ def main():
     window_height = 800
     window = pygame.display.set_mode((window_width, window_height))
 
-    # Creating hives
-    hive = Hive((3,3))
+    
 
     # Creating map
     grid_width = 5  # Number of zones on x axis
@@ -23,12 +22,17 @@ def main():
     zone_height = window_height // grid_height
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
     game_map.populate_map(10)
+    
+    # Creating hives
+    hive = Hive((3,3),grid_width, grid_height, zone_width, zone_height)
 
   #  nbPlant = 0
    # print(zone_width,"    ",zone_height)
     for row in game_map.zones:
         for zone in row:
+            
             hive.zone_tier_list.append(zone)
+            
   #          print("\nzone = ",zone.zone_id)
    #         for plant in zone.plants:
     #            nbPlant += 1
@@ -42,7 +46,7 @@ def main():
 
     # Creating bees
     bees = []
-    num_bees = 25
+    num_bees = 100
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
         xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)

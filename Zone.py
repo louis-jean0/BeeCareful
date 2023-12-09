@@ -41,6 +41,9 @@ class Zone:
 
         self.has_carnivorous_plant = len(self.carnivorous_plants) > 0
 
+    def random_position(self):
+        return [random.randint(self.minX, self.maxX-50), random.randint(self.minY, self.maxY-50)]
+    
     def getMinX(self):
         return self.minX
 
