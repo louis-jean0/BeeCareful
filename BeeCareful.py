@@ -54,7 +54,6 @@ def main():
         bee = Bee(game_map, [3,3], grid_to_pixel((3,3),zone_width,zone_height), grid_to_pixel((3,3),zone_width,zone_height),hive)
 
         bees.append(bee)
-        hive.add_to_bee_waiting_list_init(bee)
 
     # Loading images
     bee_image = pygame.image.load('abeille.png')

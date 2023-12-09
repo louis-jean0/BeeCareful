@@ -47,7 +47,7 @@ class Hive:
             randY = random.randint(0, 4)
             
             zone = self.hive_map.zones[0]
-            print(zone)
+            
             current_bee.set_target(self.hive_map.zones[randX][randY].random_position())
             self.bee_waiting_list.pop(0)
             

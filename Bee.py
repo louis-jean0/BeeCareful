@@ -8,7 +8,7 @@ class Bee:
         self.grid_position = grid_position  # Position actuelle de l'abeille
         self.pixel_position = pixel_position
         self.home_position = home_position  # Position de la ruche
-        self.pollen_capacity = 20 # Capacité maximale de pollen que l'abeille peut transporter
+        self.pollen_capacity = 500 # Capacité maximale de pollen que l'abeille peut transporter
         self.pollen_collected = 0 # Quantité de pollen actuellement collectée
         self.target_position = None
         self.hive = hive
@@ -68,6 +68,7 @@ class Bee:
 
         if self.pollen_collected <= 0:
             self.go_store = False
+            hive.add_to_bee_waiting_list_init(self)
         
     def communicate_flower_location(self, flower_location):
         # Communiquer l'emplacement d'une fleur à d'autres abeilles
