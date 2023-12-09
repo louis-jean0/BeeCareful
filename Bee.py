@@ -5,6 +5,8 @@ from Hive import Hive
 from utils import *
 from Map import Map
 from utils import *
+from CarnivorousPlant import CarnivorousPlant
+from Plant import Plant
 
 class Bee:
     def __init__(self, map, grid_position, pixel_position, home_position,hive):
@@ -124,10 +126,10 @@ class Bee:
                 self.move_towards_target()
             else:
                 if self.plant:
-                    if isinstance(self.plant,CarnivorousPlant):
-                        self.plant.eat_bee(self)
-                    else:
+                    if isinstance(self.plant,Plant):
                         self.pollen_collected += self.plant.get_pollen()
+                    else:
+                        self.plant.eat_bee(self)
                     if self.pollen_collected == self.pollen_capacity:
                         self.go_store = True
                 else:
