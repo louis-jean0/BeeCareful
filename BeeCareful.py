@@ -53,6 +53,9 @@ def main():
     plant_image = pygame.image.load('fleur.png')
     plant_image = pygame.transform.scale(plant_image, (75,75))
     
+    plant_image_morte = pygame.image.load('fleur_morte.png')
+    plant_image_morte = pygame.transform.scale(plant_image_morte, (75,75))
+
     carni_plant_image = pygame.image.load('plantecarnivore.png')
     carni_plant_image = pygame.transform.scale(carni_plant_image, (75,75))
 
@@ -75,7 +78,10 @@ def main():
         for row in game_map.zones:
             for zone in row:
                 for plant in zone.plants:
-                    plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
+                    if not(plant.isOnCD()):
+                        plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
+                    else:
+                        plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image_morte)
                 for carni_plant in zone.carnivorous_plants:
                     carni_plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
         for bee in bees:
