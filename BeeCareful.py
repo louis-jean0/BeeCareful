@@ -36,6 +36,9 @@ def main():
     plant_image = pygame.image.load('fleur.png')
     plant_image = pygame.transform.scale(plant_image, (75,75))
 
+    carnivorous_plant_image = pygame.image.load('plantecarnivore.png')
+    carnivorous_plant_image = pygame.transform.scale(carnivorous_plant_image,(75,75))
+
     hive_image = pygame.image.load('ruche.png')
     hive_image = pygame.transform.scale(hive_image,(100,100))
 
@@ -58,6 +61,8 @@ def main():
             for zone in row:
                 for plant in zone.plants:
                     plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
+                for carnivorous_plant in zone.carnivorous_plants:
+                    carnivorous_plant.draw_carnivorous_plant(window,carnivorous_plant.position,zone_width,zone_height,plant_image)
         for bee in bees:
             bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
             bee.update()
