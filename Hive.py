@@ -1,5 +1,5 @@
 import random
-
+import math
 from Map import Map
 
 class Hive:
@@ -47,12 +47,50 @@ class Hive:
             randY = random.randint(0, 4)
             
             zone = self.hive_map.zones[0]
-            print(zone)
+            
             current_bee.set_target(self.hive_map.zones[randX][randY].random_position())
             self.bee_waiting_list.pop(0)
             
             
-            
+    def sort_priority(self):
+        self.zone_tier_list = []
+        zone_liste = []
+        for row in self.hive_map.zones:
+            for zone in row:
+                zone_liste.append(zone)
+        
+        for z in zone_liste:
+            if self.zone_tier_list == []:
+                self.zone_tier_list.append(z)
+            else:
+                for i in range(len(self.zone_tier_list)):
+                    if z.score > self.zone_tier_list[i].score:
+                        self.zone_tier_list.insert(i,z)
+                        break
+    
+    def print_priority(self):
+        for zone in self.zone_tier_list :
+            print(zone.zone_id)
+    def score_init(self):
+        for row in self.hive_map.zones:
+            for zone in row:
+                self.score(zone)
+    
+    def score(self,zone):    
+    # score d'une zone = distance + nbPlantes - nbPlante Carnivore Connu - nbPlante en Cooldown
+        if self.position[0] == zone.zone_id[0] and self.position[1] == zone.zone_id[1]:
+            distance = 1.01
+        else:
+            distance = 1 / math.sqrt(pow((self.position[0] - zone.zone_id[0]),2) + pow((self.position[1] - zone.zone_id[1]),2))
+        if zone.nbPlante == 0:
+            zone.score = 0
+        else:    
+            zone.score = (distance + zone.nbPlante - zone.nbCarniPlante - zone.nbPlanteCooldown) * (zone.nbPlante - zone.nbCarniPlante / zone.nbPlante)
+                
+                
+    
+    # nbPlante Carnivore Connu : comment reconnaitre une plante carnivore ?
+    # nbPlante en Cooldown donné par les abeilles, en analysant la zone, elles connaissent le nombre de fleurs occupés
             
      
     def draw_hive(self, window, position, zone_width, zone_height, image):

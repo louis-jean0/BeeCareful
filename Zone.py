@@ -14,7 +14,10 @@ class Zone:
         self.plants = []
         self.carnivorous_plants = []
         self.has_carnivorous_plant = False
-        self.nbPlante = 0
+        self.nbPlante = 1
+        self.nbCarniPlante = 0
+        self.nbPlanteCooldown = 0
+        self.score = 0
 
     def is_too_close(self, new_position, ecartPlante):
         for plant in self.plants + self.carnivorous_plants:
