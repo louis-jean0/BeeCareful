@@ -3,7 +3,8 @@ import random
 from Hive import Hive
 
 class Bee:
-    def __init__(self, grid_position, pixel_position, home_position,hive):
+    def __init__(self, map, grid_position, pixel_position, home_position,hive):
+        self.map = map
         self.grid_position = grid_position  # Position actuelle de l'abeille
         self.pixel_position = pixel_position
         self.home_position = home_position  # Position de la ruche
@@ -68,8 +69,6 @@ class Bee:
         if self.pollen_collected == 0:
             self.go_store = False
         
-        
-
     def communicate_flower_location(self, flower_location):
         # Communiquer l'emplacement d'une fleur à d'autres abeilles
         # Cela pourrait impliquer de mettre à jour une sorte de mémoire partagée ou de carte
