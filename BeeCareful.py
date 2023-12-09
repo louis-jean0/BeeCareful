@@ -25,7 +25,9 @@ def main():
     
     # Creating hives
     hive = Hive((3,3),grid_width, grid_height, zone_width, zone_height)
-
+    hive.score_init()
+    hive.sort_priority()
+    hive.print_priority()
   #  nbPlant = 0
    # print(zone_width,"    ",zone_height)
     for row in game_map.zones:
@@ -46,7 +48,9 @@ def main():
 
     # Creating bees
     bees = []
+
     num_bees = 50
+
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
         xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)
