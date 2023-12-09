@@ -43,12 +43,12 @@ class Hive:
         if self.bee_waiting_list:
             current_bee = self.bee_waiting_list[0]
             
-            randX = random.randint(0, 4)
-            randY = random.randint(0, 4)
             
-            zone = self.hive_map.zones[0]
             
-            current_bee.set_target(self.hive_map.zones[randX][randY].random_position())
+            current_bee.set_target(self.zone_tier_list[0].random_position())
+            self.zone_tier_list[0].nbPlanteCooldown += 1
+            self.score(self.zone_tier_list[0])
+            self.sort_priority()
             self.bee_waiting_list.pop(0)
             
             
