@@ -28,7 +28,7 @@ class Map:
         zone = self.zones[int(position[1])][int(position[0])]
         listPlants = zone.getPlants()
         rand = random.randint(0,zone.getNbPlant()-1)
-        return listPlants[0]
+        return listPlants[rand]
 
     def getNbPlantZone(self,position):
         zone = self.zones[int(position[1])][int(position[0])]

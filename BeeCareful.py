@@ -94,7 +94,8 @@ def main():
         for row in game_map.zones:
             for zone in row:
                 for plant in zone.listPlantTotal:
-                    if(isinstance(plant,Plant)):    
+                    plant.update()  
+                    if(isinstance(plant,Plant)):  
                         if not(plant.isOnCD()):
                             plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
                         else:
