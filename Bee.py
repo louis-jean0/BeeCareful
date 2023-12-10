@@ -28,6 +28,7 @@ class Bee:
         self.nbPlantes = 0
         self.nbCarniPlantes = set()
         self.nbPlantesOccupee = 0
+        self.enAlerte = False
 
     def set_target(self, target_position):
         self.target_position = target_position
@@ -39,6 +40,12 @@ class Bee:
     def move(self, new_position):
         # Mettre à jour la position de l'abeille
         self.pixel_position = new_position
+
+    def set_alerte(self,val):
+        self.enAlerte = val
+
+    def isEnAlerte(self):
+        return self.enAlerte
 
     def move_towards_target(self):
         if self.target_position:
@@ -84,6 +91,7 @@ class Bee:
             self.move_towards_target()
         # Déposer le pollen à la ruche et réinitialiser le compteur de pollen
         else:
+            self.enAlerte = False
             if self.zone_targeted and self.zone_targeted.zone_id[0] == self.hive.position[0] and self.zone_targeted.zone_id[1] == self.hive.position[1]:
                 listePlante = self.map.getListePlant(self.grid_position)
                 for p in listePlante:

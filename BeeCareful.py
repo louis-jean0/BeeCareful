@@ -53,7 +53,7 @@ def main():
 
 
 
-    num_bees = 100
+    num_bees = 50
 
 
     for _ in range(num_bees):
@@ -67,6 +67,9 @@ def main():
     # Loading images
     bee_image = pygame.image.load('abeille.png')
     bee_image = pygame.transform.scale(bee_image, (50,50))
+
+    bee_image_alerte = pygame.image.load('abeille_en_alerte.png')
+    bee_image_alerte = pygame.transform.scale(bee_image_alerte, (50,50))
 
     plant_image = pygame.image.load('fleur.png')
     plant_image = pygame.transform.scale(plant_image, (75,75))
@@ -114,7 +117,10 @@ def main():
         for bee in bees:
             if(bee.is_alive):
                 if not(bee.isAtHive()):
-                    bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
+                    if not(bee.isEnAlerte()):
+                        bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
+                    else:
+                        bee.draw_bee(window,zone_width,zone_height,bee_image_alerte) # Draw bees
                 else:
                     hive.give_action()
             bee.update()

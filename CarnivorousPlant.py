@@ -11,6 +11,7 @@ class CarnivorousPlant():
     def eat_bee(self,bee):
         for bee in self.zone.beeList:
             bee.nbCarniPlantes.add(tuple(self.position))
+            bee.set_alerte(True)
         self.isEating = True
         bee.die()
         
