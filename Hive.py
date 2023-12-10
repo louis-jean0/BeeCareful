@@ -12,7 +12,7 @@ class Hive:
         self.zone_tier_list = []    # Liste de priorité des zones
         self.bee_zone_list = []     # Liste de tuple (bee,zone,time) associant une abeille, sa zone ainsi que le temps qu'elle met, incrémenter dans updates()
         self.hive_map = Map(grid_width, grid_height, zone_width, zone_height)
-        self.hive_map.printMap()
+        
     
 
     def update(self):
@@ -29,13 +29,13 @@ class Hive:
                     zone.nbPlante = nbPlantes
                     
                     zone.ensembleCarniPlante = zone.ensembleCarniPlante | nbCarniPlantes
-                    print(zone.ensembleCarniPlante,"  ",len(zone.ensembleCarniPlante))
+                    
                     zone.updateNombreCarni()
                         
                     zone.updateCooldown(nbPlantesOccupee)
                     self.score(zone)
                     self.sort_priority()
-                    self.hive_map.printMap()
+                    
                     return
     
     def store_pollen_from_bee(self, amount):

@@ -33,23 +33,13 @@ def main():
     hive_2.score_init()
     hive_2.sort_priority()
     
-  #  nbPlant = 0
-   # print(zone_width,"    ",zone_height)
+  
     for row in game_map.zones:
         for zone in row:
             
             hive.zone_tier_list.append(zone)
             hive_2.zone_tier_list.append(zone)
-    game_map.printMap()
-            
-  #          print("\nzone = ",zone.zone_id)
-   #         for plant in zone.plants:
-    #            nbPlant += 1
-    #            print("plants : ",plant.position,"    ",zone.minX < plant.position[0] and plant.position[0] < zone.maxX,"     ",zone.minY < plant.position[1] and plant.position[1] < zone.maxY)
-     #       for carnivorous_plants in zone.carnivorous_plants:
-      #          nbPlant += 1
-       #         print("carni_plants : ",carnivorous_plants.position,"    ",zone.minX < carnivorous_plants.position[0] and carnivorous_plants.position[0] < zone.maxX,"     ",zone.minY < carnivorous_plants.position[1] and carnivorous_plants.position[1] < zone.maxY)
- #   print(nbPlant)
+    
 
 
 
@@ -75,7 +65,13 @@ def main():
     bee_image = pygame.transform.scale(bee_image, (50,50))
 
     bee_image_alerte = pygame.image.load('abeille_en_alerte.png')
-    bee_image_alerte = pygame.transform.scale(bee_image_alerte, (50,50))
+    bee_image_alerte = pygame.transform.scale(bee_image_alerte, (50,75))
+    
+    pink_bee_image = pygame.image.load('pink_bee.png')
+    pink_bee_image = pygame.transform.scale(pink_bee_image, (75,75))
+
+    pink_bee_image_alerte = pygame.image.load('pink_bee_alerte.png')
+    pink_bee_image_alerte = pygame.transform.scale(pink_bee_image_alerte, (75,90))
 
     plant_image = pygame.image.load('fleur.png')
     plant_image = pygame.transform.scale(plant_image, (75,75))
@@ -91,6 +87,9 @@ def main():
 
     hive_image = pygame.image.load('ruche.png')
     hive_image = pygame.transform.scale(hive_image,(100,100))
+    
+    hive_2_image = pygame.image.load('ruche_2.png')
+    hive_2_image = pygame.transform.scale(hive_2_image,(100,100))
 
     background_image = pygame.image.load('grass.jpg')
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
@@ -127,17 +126,18 @@ def main():
                         if bee.hive == hive:
                             bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
                         else:
-                            bee.draw_bee(window,zone_width,zone_height,carni_plant_image) # Draw bees
+                            bee.draw_bee(window,zone_width,zone_height,pink_bee_image) # Draw bees
                     else:
                         if bee.hive == hive:
                             bee.draw_bee(window,zone_width,zone_height,bee_image_alerte) # Draw bees
                         else:
-                            bee.draw_bee(window,zone_width,zone_height,carni_plant_image_crous) # Draw bees
+                            bee.draw_bee(window,zone_width,zone_height,pink_bee_image_alerte) # Draw bees
                 else:
                     hive.give_action()
                     hive_2.give_action()
             bee.update()
-        hive_2.draw_hive(window,hive_2.position,zone_width,zone_height,hive_image) # Draw hives
+        print("hive 1 : ",hive.stored_pollen,"     hive 2 : ",hive_2.stored_pollen)
+        hive_2.draw_hive(window,hive_2.position,zone_width,zone_height,hive_2_image) # Draw hives
         hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
 
         pygame.display.flip()
