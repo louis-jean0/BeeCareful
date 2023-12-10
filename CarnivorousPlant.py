@@ -7,7 +7,7 @@ class CarnivorousPlant():
         self.isEating = False
         self.cooldown = 1000
         self.time = 0
-        self.couleurAbeille
+        self.couleurAbeille = 0
 
     def eat_bee(self,bee):
         bee.die()

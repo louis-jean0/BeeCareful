@@ -14,7 +14,7 @@ class Hive:
         self.hive_map = Map(grid_width, grid_height, zone_width, zone_height)
         self.numero = num
         
-    def getNumero(sefl):
+    def getNumero(self):
         return self.numero
 
     def update(self):
