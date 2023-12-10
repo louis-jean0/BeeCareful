@@ -10,10 +10,16 @@ def main():
 
     # Creating window
     pygame.init()
+    
+    bandeau_height = 40
+    bandeau_color = (255, 233, 72)  # Bleu foncé, par exemple
+    
+    
     window_width = 1600
     window_height = 900
-    window = pygame.display.set_mode((window_width, window_height))
-
+    window = pygame.display.set_mode((window_width, window_height + bandeau_height))
+    pygame.display.set_caption("Bee Careful")
+    
     
 
     # Creating map
@@ -22,7 +28,7 @@ def main():
     zone_width = window_width // grid_width
     zone_height = window_height // grid_height
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
-    game_map.populate_map(25)
+    game_map.populate_map(24)
     
     # Creating hives
     hive = Hive((3,3),grid_width, grid_height, zone_width, zone_height)
@@ -63,15 +69,16 @@ def main():
     # Loading images
     bee_image = pygame.image.load('abeille.png')
     bee_image = pygame.transform.scale(bee_image, (50,50))
+    pygame.display.set_icon(bee_image)
 
     bee_image_alerte = pygame.image.load('abeille_en_alerte.png')
-    bee_image_alerte = pygame.transform.scale(bee_image_alerte, (50,75))
+    bee_image_alerte = pygame.transform.scale(bee_image_alerte, (75,75))
     
     pink_bee_image = pygame.image.load('pink_bee.png')
     pink_bee_image = pygame.transform.scale(pink_bee_image, (75,75))
 
     pink_bee_image_alerte = pygame.image.load('pink_bee_alerte.png')
-    pink_bee_image_alerte = pygame.transform.scale(pink_bee_image_alerte, (75,90))
+    pink_bee_image_alerte = pygame.transform.scale(pink_bee_image_alerte, (75,75))
 
     plant_image = pygame.image.load('fleur.png')
     plant_image = pygame.transform.scale(plant_image, (75,75))
@@ -94,9 +101,15 @@ def main():
     background_image = pygame.image.load('grass.jpg')
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
+
+    score_font = pygame.font.SysFont("Arial", 30,bold = True)
+    
+
     # Game loop
     running = True
     while running:
+        
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -139,6 +152,13 @@ def main():
         print("hive 1 : ",hive.stored_pollen,"     hive 2 : ",hive_2.stored_pollen)
         hive_2.draw_hive(window,hive_2.position,zone_width,zone_height,hive_2_image) # Draw hives
         hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
+        
+        
+        pygame.draw.rect(window, bandeau_color, [0, window_height , window_width, window_width + bandeau_height])
+        score_text_hive_1 = score_font.render(f"Score Hive 1: {hive_2.stored_pollen // 100}", True, (0, 0, 0))
+        score_text_hive_2 = score_font.render(f"Score Hive 2: {hive.stored_pollen // 100}", True, (0, 0, 0))
+        window.blit(score_text_hive_1, (5,window_height + bandeau_height - score_text_hive_2.get_height() - 5))  # Positionnez comme nécessaire
+        window.blit(score_text_hive_2, (window_width - score_text_hive_2.get_width() - 5, window_height + bandeau_height - score_text_hive_2.get_height() - 5))  # Positionnez comme nécessaire
 
         pygame.display.flip()
 
