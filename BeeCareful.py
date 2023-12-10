@@ -102,7 +102,7 @@ def main():
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
 
-    score_font = pygame.font.SysFont("Arial", 30,bold = True)
+    score_font = pygame.font.Font("Grand9K_Pixel.ttf", 30)
     
 
     # Game loop
@@ -149,7 +149,7 @@ def main():
                     hive.give_action()
                     hive_2.give_action()
             bee.update()
-        print("hive 1 : ",hive.stored_pollen,"     hive 2 : ",hive_2.stored_pollen)
+        
         hive_2.draw_hive(window,hive_2.position,zone_width,zone_height,hive_2_image) # Draw hives
         hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
         
@@ -157,8 +157,8 @@ def main():
         pygame.draw.rect(window, bandeau_color, [0, window_height , window_width, window_width + bandeau_height])
         score_text_hive_1 = score_font.render(f"Score Hive 1: {hive_2.stored_pollen // 100}", True, (0, 0, 0))
         score_text_hive_2 = score_font.render(f"Score Hive 2: {hive.stored_pollen // 100}", True, (0, 0, 0))
-        window.blit(score_text_hive_1, (5,window_height + bandeau_height - score_text_hive_2.get_height() - 5))  # Positionnez comme nécessaire
-        window.blit(score_text_hive_2, (window_width - score_text_hive_2.get_width() - 5, window_height + bandeau_height - score_text_hive_2.get_height() - 5))  # Positionnez comme nécessaire
+        window.blit(score_text_hive_1, (5,window_height + bandeau_height - score_text_hive_2.get_height() ))  # Positionnez comme nécessaire
+        window.blit(score_text_hive_2, (window_width - score_text_hive_2.get_width() - 5, window_height + bandeau_height - score_text_hive_2.get_height() ))  # Positionnez comme nécessaire
 
         pygame.display.flip()
 
