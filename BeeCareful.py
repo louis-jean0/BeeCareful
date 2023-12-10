@@ -98,6 +98,7 @@ def main():
         
         for row in game_map.zones:
             for zone in row:
+                zone.update()
                 for plant in zone.listPlantTotal:
                     plant.update()  
                     if(isinstance(plant,Plant)):  

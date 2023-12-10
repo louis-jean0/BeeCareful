@@ -27,8 +27,12 @@ class Hive:
                 if zoneTargeted == zone:
                     
                     zone.nbPlante = nbPlantes
-                    zone.nbCarniPlante = nbCarniPlantes
-                    zone.nbPlanteCooldown = nbPlantesOccupee
+                    
+                    zone.ensembleCarniPlante = zone.ensembleCarniPlante | nbCarniPlantes
+                    print(zone.ensembleCarniPlante,"  ",len(zone.ensembleCarniPlante))
+                    zone.updateNombreCarni()
+                        
+                    zone.updateCooldown(nbPlantesOccupee)
                     self.score(zone)
                     self.sort_priority()
                     self.hive_map.printMap()
@@ -55,6 +59,7 @@ class Hive:
             current_bee.send_to_target(self.zone_tier_list[0],self.zone_tier_list[0].random_position())
             current_bee.notDeposedYet = True
             self.bee_zone_list
+            
             self.zone_tier_list[0].nbPlanteCooldown += 1
             self.score(self.zone_tier_list[0])
             self.sort_priority()
@@ -80,7 +85,7 @@ class Hive:
     def score(self,zone):    
     # score d'une zone = distance + nbPlantes - nbPlante Carnivore Connu - nbPlante en Cooldown
         if self.position[0] == zone.zone_id[0] and self.position[1] == zone.zone_id[1]:
-            distance = 1.0001
+            distance = 0.9
         else:
             distance = 1 / math.sqrt(pow((self.position[0] - zone.zone_id[0]),2) + pow((self.position[1] - zone.zone_id[1]),2))
         

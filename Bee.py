@@ -26,7 +26,7 @@ class Bee:
         self.notDeposedYet = False
         #Paramètres à transmettre à la ruche
         self.nbPlantes = 0
-        self.nbCarniPlantes = 0
+        self.nbCarniPlantes = set()
         self.nbPlantesOccupee = 0
 
     def set_target(self, target_position):
@@ -115,6 +115,7 @@ class Bee:
                 hive.give_information(self.nbPlantes, self.nbCarniPlantes, self.nbPlantesOccupee, self.zone_targeted)
                 self.notDeposedYet = False
                 self.nbPlantesOccupee = 0
+                self.nbCarniPlantes = set()
             self.pollen_collected -= 1
             
             
@@ -153,6 +154,8 @@ class Bee:
                     
                 if self.zone_targeted and not(self.zone_targeted.analyseZone(self.grid_position)) and self.InZoneTargeted: #Si l'abeille vient de sortir de sa zone targeted
                     
+                    realZone = self.map.zones[self.zone_targeted.zone_id[1]][self.zone_targeted.zone_id[0]]
+                    realZone.removeBeeFromList(self)
                     listePlante = self.map.getListePlant(self.zone_targeted.zone_id)
                     for p in listePlante:
                         if isinstance(p,Plant):
@@ -169,8 +172,11 @@ class Bee:
                 #self.map.getPlant(self.target_position)
                 
                 if self.zone_targeted.analyseZone(self.grid_position) and not(self.InZoneTargeted): #Si l'abeille vient de rentrer dans sa zone targeted
-                    realZone = self.map.zones[self.zone_targeted.zone_id[1]][self.zone_targeted.zone_id[0]]
                     
+                    
+                    
+                    realZone = self.map.zones[self.zone_targeted.zone_id[1]][self.zone_targeted.zone_id[0]]
+                    realZone.addBeeInList(self)
                     self.nbPlantes = realZone.nbPlante
                     self.InZoneTargeted = True
                 
