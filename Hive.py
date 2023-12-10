@@ -12,9 +12,8 @@ class Hive:
         self.zone_tier_list = []    # Liste de priorité des zones
         self.bee_zone_list = []     # Liste de tuple (bee,zone,time) associant une abeille, sa zone ainsi que le temps qu'elle met, incrémenter dans updates()
         self.hive_map = Map(grid_width, grid_height, zone_width, zone_height)
-
-    def add_to_bee_waiting_list_init(self,bee):
-        self.bee_waiting_list.append(bee)
+        self.hive_map.printMap()
+    
 
     def update(self):
         # Mettre à jour la ruche à chaque tick du jeu
@@ -22,9 +21,25 @@ class Hive:
         
         pass
         
+    def give_information(self, nbPlantes, nbCarniPlantes, nbPlantesOccupee, zoneTargeted):
+        for row in self.hive_map.zones:
+            for zone in row:
+                if zoneTargeted == zone:
+                    
+                    zone.nbPlante = nbPlantes
+                    zone.nbCarniPlante = nbCarniPlantes
+                    zone.nbPlanteCooldown = nbPlantesOccupee
+                    self.score(zone)
+                    self.sort_priority()
+                    self.hive_map.printMap()
+                    return
+    
     def store_pollen_from_bee(self, amount):
         # Ajouter du pollen au stockage, sans dépasser la capacité
         self.stored_pollen += amount
+        
+    def add_to_bee_waiting_list_init(self,bee):
+        self.bee_waiting_list.append(bee)
 
     def wait_order(self,bee):
         # Fonction appelé par une abeille lorsqu'elle attend une action
@@ -37,7 +52,9 @@ class Hive:
             
             
             
-            current_bee.set_target(self.zone_tier_list[0].random_position())
+            current_bee.send_to_target(self.zone_tier_list[0],self.zone_tier_list[0].random_position())
+            current_bee.notDeposedYet = True
+            self.bee_zone_list
             self.zone_tier_list[0].nbPlanteCooldown += 1
             self.score(self.zone_tier_list[0])
             self.sort_priority()
@@ -45,20 +62,12 @@ class Hive:
             
             
     def sort_priority(self):
-        self.zone_tier_list = []
-        zone_liste = []
-        for row in self.hive_map.zones:
-            for zone in row:
-                zone_liste.append(zone)
-        
-        for z in zone_liste:
-            if self.zone_tier_list == []:
-                self.zone_tier_list.append(z)
-            else:
-                for i in range(len(self.zone_tier_list)):
-                    if z.score > self.zone_tier_list[i].score:
-                        self.zone_tier_list.insert(i,z)
-                        break
+       
+        # Créer une liste plate de toutes les zones
+        zone_liste = [zone for row in self.hive_map.zones for zone in row]
+
+        # Trier la liste en fonction du score de chaque zone
+        self.zone_tier_list = sorted(zone_liste, key=lambda z: z.score, reverse=True)
     
     def print_priority(self):
         for zone in self.zone_tier_list :
@@ -71,13 +80,15 @@ class Hive:
     def score(self,zone):    
     # score d'une zone = distance + nbPlantes - nbPlante Carnivore Connu - nbPlante en Cooldown
         if self.position[0] == zone.zone_id[0] and self.position[1] == zone.zone_id[1]:
-            distance = 1.01
+            distance = 1.0001
         else:
             distance = 1 / math.sqrt(pow((self.position[0] - zone.zone_id[0]),2) + pow((self.position[1] - zone.zone_id[1]),2))
+        
         if zone.nbPlante == 0:
             zone.score = 0
         else:    
-            zone.score = (distance + zone.nbPlante - zone.nbCarniPlante - zone.nbPlanteCooldown) * (zone.nbPlante - zone.nbCarniPlante / zone.nbPlante)
+            
+            zone.score = (distance + zone.nbPlante - zone.nbCarniPlante - zone.nbPlanteCooldown) * ((zone.nbPlante - zone.nbCarniPlante) / zone.nbPlante)
                 
                 
     

@@ -29,7 +29,28 @@ class Map:
         listPlants = zone.getPlants()
         rand = random.randint(0,zone.getNbPlant()-1)
         return listPlants[rand]
+        
+    def getListePlant(self,position):
+        zone = self.zones[int(position[1])][int(position[0])]
+        listPlants = zone.getPlants()
+        
+        return listPlants
 
     def getNbPlantZone(self,position):
         zone = self.zones[int(position[1])][int(position[0])]
         return zone.getNbPlant()
+        
+    def printMap(self):
+        for row in self.zones:
+            print("")
+            for zone in row:
+                zone.printZone()
+                
+        print("==================================================================================================================")
+    
+    def printPlanteMap(self):
+        for row in self.zones:
+            print("")
+            for zone in row:
+                zone.printListePlante()
+        print("==================================================================================================================")

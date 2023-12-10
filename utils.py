@@ -1,6 +1,6 @@
 def grid_to_pixel(grid_pos, zone_width, zone_height):
-    pixel_x = grid_pos[0] * zone_width
-    pixel_y = grid_pos[1] * zone_height
+    pixel_x = grid_pos[0] * zone_width + 15
+    pixel_y = grid_pos[1] * zone_height + 15
     return pixel_x, pixel_y
 
 def pixel_to_grid(pixel_pos, zone_width, zone_height):

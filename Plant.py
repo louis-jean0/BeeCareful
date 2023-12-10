@@ -11,6 +11,7 @@ class Plant:
         self.cooldown = cooldown
         self.timer = cooldown
         self.onCooldown = False
+        self.IsOccupee = False
 
     def draw_plant(self, window, position, cell_width, cell_height, image):
         x = position[0] 
@@ -18,10 +19,12 @@ class Plant:
         window.blit(image, (x, y))
 
     def get_pollen(self):
+        self.IsOccupee = True
         speed = 1 # vitesse a laquelle le pollen est recupere
         self.current_pollen -= speed
         if self.current_pollen <= 0:
             self.onCooldown = True
+            self.IsOccupee = False
         return speed # retourne le pollen pris
 
     def restaure(self):
@@ -40,3 +43,5 @@ class Plant:
 
     def get_position(self):
         return self.position
+        
+    

@@ -29,7 +29,7 @@ class Zone:
     def populate_zone(self, num_plants_total):
         self.nbPlante = num_plants_total
         max_pollen = 500
-        cooldown = 500
+        cooldown = 5000
         ecartPlante = 30
 
         for _ in range(num_plants_total):
@@ -68,3 +68,25 @@ class Zone:
     
     def getNbPlant(self):
         return self.nbPlante
+        
+    def analyseZone(self,position):
+        
+        return self.zone_id[0] == position[0] and self.zone_id[1] == position[1] 
+        
+    def getNbPlantesOccupee(self):
+        occupee = 0
+        
+        for plant in self.plants:
+            
+            if plant.IsOccupee or plant.onCooldown:
+                occupee += 1
+        return occupee
+        
+    def printZone(self):
+        print("Zone : ",self.zone_id,"  self.nbPlante = ", self.nbPlante,"  self.nbCarniPlante = ",self.nbCarniPlante,"self.nbPlanteCooldown = ",self.nbPlanteCooldown,"self.score = ",self.score)
+        
+    def printListePlante(self):
+        for plant in self.plants:
+            print(plant.IsOccupee,"    ",plant.onCooldown)
+        print("*******************************************")
+        
