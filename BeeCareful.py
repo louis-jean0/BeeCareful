@@ -50,7 +50,10 @@ def main():
     # Creating bees
     bees = []
 
-    num_bees = 1000
+
+
+    num_bees = 50
+
 
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
@@ -94,7 +97,8 @@ def main():
         for row in game_map.zones:
             for zone in row:
                 for plant in zone.listPlantTotal:
-                    if(isinstance(plant,Plant)):    
+                    plant.update()  
+                    if(isinstance(plant,Plant)):  
                         if not(plant.isOnCD()):
                             plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
                         else:

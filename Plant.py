@@ -1,4 +1,5 @@
 import random
+import pygame
 
 class Plant:
     
@@ -27,8 +28,12 @@ class Plant:
         speed = 1 # vitesse a laquelle le pollen est restaure
         self.current_pollen += speed
         if self.current_pollen >= self.max_pollen:
-            self.current_pollen = max_pollen
+            self.current_pollen = self.max_pollen
             self.onCooldown = False
+
+    def update(self):
+        if(self.onCooldown):
+            self.restaure()
 
     def isOnCD(self):
         return self.onCooldown

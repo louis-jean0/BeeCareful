@@ -85,11 +85,12 @@ class Bee:
         # Déposer le pollen à la ruche
         # Cela pourrait impliquer d'augmenter un compteur dans la ruche ou une autre logique
         hive.store_pollen_from_bee(self.pollen_collected)
-        self.pollen_collected -= 1
 
         if self.pollen_collected <= 0:
             self.go_store = False
             hive.add_to_bee_waiting_list_init(self)
+        else:
+            self.pollen_collected -= 1
         
     def communicate_flower_location(self, flower_location):
         # Communiquer l'emplacement d'une fleur à d'autres abeilles
@@ -100,7 +101,8 @@ class Bee:
         current_zone = pixel_to_grid(self.pixel_position,self.map.zone_width,self.map.zone_height)
         zoneX = int(current_zone[0])
         zoneY = int(current_zone[1])
-        
+        print(zoneX)
+        print(zoneY)
         for plant in self.map.zones[zoneX][zoneY].plants:
             if(self.pixel_position == plant.position):
                 return True
@@ -108,38 +110,50 @@ class Bee:
     
     def die(self):
         self.is_alive = False
+        self.grid_position = (-1,-1)
+        self.pixel_position = (-100,-100)
+
 
     def update(self):
         # Mettre à jour le comportement de l'abeille à chaque tick du jeu
         # Implémenter la logique de décision pour se déplacer, récolter du pollen, etc.
         
-        if self.go_store:
-            self.return_to_hive()
-            self.plant = None
-        else:
-            #if(self.target_position == None):
-                #self.set_target((random.randint(0,1200),random.randint(0,800)))
-            #self.map.getPlant(self.target_position)
-
-            if not(self.isAtTarget()):
-                self.move_towards_target()
+        if self.is_alive:
+            if self.go_store:
+                self.return_to_hive()
+                self.plant = None
             else:
-                if self.plant:
-                    if isinstance(self.plant,Plant):
-                        self.pollen_collected += self.plant.get_pollen()
-                        if self.pollen_collected == self.pollen_capacity:
-                            self.go_store = True
-                    else:
-                        self.plant.eat_bee(self)
-                        
-                    
+                #if(self.target_position == None):
+                    #self.set_target((random.randint(0,1200),random.randint(0,800)))
+                #self.map.getPlant(self.target_position)
+
+                if not(self.isAtTarget()): # si la bee a pas atteint sa cible
+                    self.move_towards_target()
                 else:
-                    
-                    if self.map.getNbPlantZone(self.grid_position) > 0:
-                        self.plant = self.map.getPlant(self.grid_position)
-                        self.set_target(self.plant.get_position())
-                    else:
-                        self.go_store = True
+                    if self.plant: # si la cible est une plante
+                        if isinstance(self.plant,Plant): # si elle n'est pas carnivore
+                            if self.pollen_collected == self.pollen_capacity: # elle est full
+                                self.go_store = True
+                            elif self.plant.isOnCD(): # la plante est en CD
+                                if self.map.getNbPlantZone(self.grid_position) == 1: # s'il n'y a d'autre plante
+                                    self.go_store = True
+                                else: # s'il y a une autre plante
+                                    self.plant = self.map.getPlant(self.grid_position)
+                                    self.set_target(self.plant.get_position())
+                            else: # elle est sur une plante et recupere le pollen
+                                self.pollen_collected += self.plant.get_pollen()
+                        else: # la plante est carnivore
+                            if self.plant.get_isEating(): # la plante est en train de manger
+                                self.go_store = True
+                            else:
+                                self.plant.eat_bee(self)
+                    else: # la cible est pas une plante (c'est une zone)
+                        
+                        if self.map.getNbPlantZone(self.grid_position) > 0: # s'il existe des plantes dans la zone
+                            self.plant = self.map.getPlant(self.grid_position)
+                            self.set_target(self.plant.get_position())
+                        else: # pas de plante, on retourne a la ruche
+                            self.go_store = True
 
     def draw_bee(self, window, cell_width, cell_height, image):
         x = self.pixel_position[0]
