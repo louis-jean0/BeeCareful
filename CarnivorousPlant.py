@@ -6,8 +6,11 @@ class CarnivorousPlant():
         self.isEating = False
 
     def eat_bee(self,bee):
+        print("aaaa")
         bee.die()
+        print("pouet")
         self.isEating = True
+        print("in Plant ",self.isEating,"         ",self.position)
         
     def draw_carni_plant(self, window, position, cell_width, cell_height, image):
         x = position[0] 

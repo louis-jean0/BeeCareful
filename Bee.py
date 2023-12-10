@@ -100,8 +100,7 @@ class Bee:
         current_zone = pixel_to_grid(self.pixel_position,self.map.zone_width,self.map.zone_height)
         zoneX = int(current_zone[0])
         zoneY = int(current_zone[1])
-        print(zoneX)
-        print(zoneY)
+        
         for plant in self.map.zones[zoneX][zoneY].plants:
             if(self.pixel_position == plant.position):
                 return True
@@ -128,10 +127,12 @@ class Bee:
                 if self.plant:
                     if isinstance(self.plant,Plant):
                         self.pollen_collected += self.plant.get_pollen()
+                        if self.pollen_collected == self.pollen_capacity:
+                            self.go_store = True
                     else:
                         self.plant.eat_bee(self)
-                    if self.pollen_collected == self.pollen_capacity:
-                        self.go_store = True
+                        
+                    
                 else:
                     
                     if self.map.getNbPlantZone(self.grid_position) > 0:
