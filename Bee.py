@@ -37,6 +37,9 @@ class Bee:
         self.set_target(target_position)
         self.zone_targeted = zone
 
+    def get_hive(self):
+        return self.hive().getNumero()
+
     def move(self, new_position):
         # Mettre à jour la position de l'abeille
         self.pixel_position = new_position

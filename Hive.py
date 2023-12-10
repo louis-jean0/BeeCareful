@@ -4,7 +4,7 @@ from Map import Map
 
 class Hive:
     
-    def __init__(self, position,grid_width, grid_height, zone_width, zone_height):
+    def __init__(self, position,grid_width, grid_height, zone_width, zone_height, num):
         self.position = position  # Position de la ruche sur la grille
         self.stored_pollen = 0  # Quantité actuelle de pollen stocké
         self.shared_memory = []
@@ -12,8 +12,10 @@ class Hive:
         self.zone_tier_list = []    # Liste de priorité des zones
         self.bee_zone_list = []     # Liste de tuple (bee,zone,time) associant une abeille, sa zone ainsi que le temps qu'elle met, incrémenter dans updates()
         self.hive_map = Map(grid_width, grid_height, zone_width, zone_height)
+        self.numero = num
         
-    
+    def getNumero(sefl):
+        return self.numero
 
     def update(self):
         # Mettre à jour la ruche à chaque tick du jeu

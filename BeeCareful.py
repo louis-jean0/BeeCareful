@@ -31,11 +31,11 @@ def main():
     game_map.populate_map(24)
     
     # Creating hives
-    hive = Hive((3,3),grid_width, grid_height, zone_width, zone_height)
+    hive = Hive((3,3),grid_width, grid_height, zone_width, zone_height,1)
     hive.score_init()
     hive.sort_priority()
     
-    hive_2 = Hive((1,1),grid_width, grid_height, zone_width, zone_height)
+    hive_2 = Hive((1,1),grid_width, grid_height, zone_width, zone_height,2)
     hive_2.score_init()
     hive_2.sort_priority()
     
@@ -92,6 +92,9 @@ def main():
     carni_plant_image_crous = pygame.image.load('plantecarnivoreSadgeCrous.png')
     carni_plant_image_crous = pygame.transform.scale(carni_plant_image_crous, (75,75))
 
+    carni_plant_image_crous_pink = pygame.image.load('plantecarnivoreSadgeCrous_pink.png')
+    carni_plant_image_crous_pink = pygame.transform.scale(carni_plant_image_crous_pink, (75,75))
+
     hive_image = pygame.image.load('ruche.png')
     hive_image = pygame.transform.scale(hive_image,(100,100))
     
@@ -129,7 +132,10 @@ def main():
                             plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image_morte)
                     else:
                         if plant.get_isEating():
-                            plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image_crous) # Draw plants
+                            if plant.get_couleurAbeille == 1:
+                                plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image_crous) # Draw plants
+                            else:
+                                plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image_crous_pink) # Draw plants
                         else:
                             plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
         for bee in bees:
