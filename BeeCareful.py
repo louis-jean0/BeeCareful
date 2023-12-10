@@ -29,12 +29,17 @@ def main():
     hive.score_init()
     hive.sort_priority()
     
+    hive_2 = Hive((1,1),grid_width, grid_height, zone_width, zone_height)
+    hive_2.score_init()
+    hive_2.sort_priority()
+    
   #  nbPlant = 0
    # print(zone_width,"    ",zone_height)
     for row in game_map.zones:
         for zone in row:
             
             hive.zone_tier_list.append(zone)
+            hive_2.zone_tier_list.append(zone)
     game_map.printMap()
             
   #          print("\nzone = ",zone.zone_id)
@@ -61,7 +66,8 @@ def main():
         xZone, yZone = random.randint(0, zone_width - 1), random.randint(0, zone_height - 1)
 
         bee = Bee(game_map, [3,3], grid_to_pixel((3,3),zone_width,zone_height), grid_to_pixel((3,3),zone_width,zone_height),hive)
-
+        bees.append(bee)
+        bee = Bee(game_map, [1,1], grid_to_pixel((1,1),zone_width,zone_height), grid_to_pixel((1,1),zone_width,zone_height),hive_2)
         bees.append(bee)
 
     # Loading images
@@ -118,12 +124,20 @@ def main():
             if(bee.is_alive):
                 if not(bee.isAtHive()):
                     if not(bee.isEnAlerte()):
-                        bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
+                        if bee.hive == hive:
+                            bee.draw_bee(window,zone_width,zone_height,bee_image) # Draw bees
+                        else:
+                            bee.draw_bee(window,zone_width,zone_height,carni_plant_image) # Draw bees
                     else:
-                        bee.draw_bee(window,zone_width,zone_height,bee_image_alerte) # Draw bees
+                        if bee.hive == hive:
+                            bee.draw_bee(window,zone_width,zone_height,bee_image_alerte) # Draw bees
+                        else:
+                            bee.draw_bee(window,zone_width,zone_height,carni_plant_image_crous) # Draw bees
                 else:
                     hive.give_action()
+                    hive_2.give_action()
             bee.update()
+        hive_2.draw_hive(window,hive_2.position,zone_width,zone_height,hive_image) # Draw hives
         hive.draw_hive(window,hive.position,zone_width,zone_height,hive_image) # Draw hives
 
         pygame.display.flip()
