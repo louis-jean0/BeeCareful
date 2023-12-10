@@ -22,7 +22,7 @@ def main():
     zone_width = window_width // grid_width
     zone_height = window_height // grid_height
     game_map = Map(grid_width, grid_height, zone_width, zone_height)
-    game_map.populate_map(10)
+    game_map.populate_map(15)
     
     # Creating hives
     hive = Hive((3,3),grid_width, grid_height, zone_width, zone_height)
@@ -50,7 +50,7 @@ def main():
     # Creating bees
     bees = []
 
-    num_bees = 10
+    num_bees = 1000
 
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
@@ -90,7 +90,7 @@ def main():
                 running = False
 
         window.blit(background_image,(0,0))  # Background image
-        game_map.draw(window)  # Draw zones
+        #game_map.draw(window)  # Draw zones
         for row in game_map.zones:
             for zone in row:
                 for plant in zone.listPlantTotal:
