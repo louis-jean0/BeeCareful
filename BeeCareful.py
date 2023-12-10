@@ -4,6 +4,7 @@ from Map import Map  # Assurez-vous que Map est correctement importé
 from Bee import Bee
 from utils import *
 from Hive import Hive
+from Plant import Plant
 
 def main():
 
@@ -49,7 +50,7 @@ def main():
     # Creating bees
     bees = []
 
-    num_bees = 5
+    num_bees = 10
 
     for _ in range(num_bees):
         x, y = random.randint(0, grid_width - 1), random.randint(0, grid_height - 1)
@@ -92,18 +93,17 @@ def main():
         game_map.draw(window)  # Draw zones
         for row in game_map.zones:
             for zone in row:
-                for plant in zone.plants:
-                    if not(plant.isOnCD()):
-                        plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
+                for plant in zone.listPlantTotal:
+                    if(isinstance(plant,Plant)):    
+                        if not(plant.isOnCD()):
+                            plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image) # Draw plants
+                        else:
+                            plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image_morte)
                     else:
-                        plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image_morte)
-                for carni_plant in zone.carnivorous_plants:
-                    print(carni_plant.get_isEating(),"      ",carni_plant.position)
-                    if carni_plant.get_isEating():
-                        
-                        carni_plant.draw_carni_plant(window,carni_plant.position,zone_width,zone_height,carni_plant_image_crous) # Draw plants
-                    else:
-                        carni_plant.draw_carni_plant(window,carni_plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
+                        if plant.get_isEating():
+                            plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image_crous) # Draw plants
+                        else:
+                            plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
         for bee in bees:
             if(bee.is_alive):
                 if not(bee.isAtHive()):
