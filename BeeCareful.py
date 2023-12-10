@@ -115,7 +115,7 @@ def main():
                 running = False
 
         window.blit(background_image,(0,0))  # Background image
-        game_map.draw(window)  # Draw zones
+        #game_map.draw(window)  # Draw zones
         
         for row in game_map.zones:
             for zone in row:
