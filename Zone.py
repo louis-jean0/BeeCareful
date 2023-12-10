@@ -28,7 +28,7 @@ class Zone:
 
     def populate_zone(self, num_plants_total):
         self.nbPlante = num_plants_total
-        max_pollen = 10
+        max_pollen = 500
         cooldown = 5
         ecartPlante = 30
 
