@@ -9,11 +9,11 @@ class CarnivorousPlant():
         self.time = 0
 
     def eat_bee(self,bee):
+        bee.die()
+        self.isEating = True
         for bee in self.zone.beeList:
             bee.nbCarniPlantes.add(tuple(self.position))
             bee.set_alerte(True)
-        self.isEating = True
-        bee.die()
         
     def draw_carni_plant(self, window, position, cell_width, cell_height, image):
         x = position[0] 
