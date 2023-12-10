@@ -127,29 +127,32 @@ class Bee:
                     #self.set_target((random.randint(0,1200),random.randint(0,800)))
                 #self.map.getPlant(self.target_position)
 
-                if not(self.isAtTarget()):
+                if not(self.isAtTarget()): # si la bee a pas atteint sa cible
                     self.move_towards_target()
                 else:
-                    if self.plant:
-                        if isinstance(self.plant,Plant):
-                            if self.pollen_collected == self.pollen_capacity:
+                    if self.plant: # si la cible est une plante
+                        if isinstance(self.plant,Plant): # si elle n'est pas carnivore
+                            if self.pollen_collected == self.pollen_capacity: # elle est full
                                 self.go_store = True
-                            elif self.plant.isOnCD():
-                                if self.map.getNbPlantZone(self.grid_position) == 1:
+                            elif self.plant.isOnCD(): # la plante est en CD
+                                if self.map.getNbPlantZone(self.grid_position) == 1: # s'il n'y a d'autre plante
                                     self.go_store = True
-                                else:
+                                else: # s'il y a une autre plante
                                     self.plant = self.map.getPlant(self.grid_position)
                                     self.set_target(self.plant.get_position())
-                            else:
+                            else: # elle est sur une plante et recupere le pollen
                                 self.pollen_collected += self.plant.get_pollen()
-                        else:
-                            self.plant.eat_bee(self)
-                    else:
+                        else: # la plante est carnivore
+                            if self.plant.get_isEating(): # la plante est en train de manger
+                                self.go_store = True
+                            else:
+                                self.plant.eat_bee(self)
+                    else: # la cible est pas une plante (c'est une zone)
                         
-                        if self.map.getNbPlantZone(self.grid_position) > 0:
+                        if self.map.getNbPlantZone(self.grid_position) > 0: # s'il existe des plantes dans la zone
                             self.plant = self.map.getPlant(self.grid_position)
                             self.set_target(self.plant.get_position())
-                        else:
+                        else: # pas de plante, on retourne a la ruche
                             self.go_store = True
 
     def draw_bee(self, window, cell_width, cell_height, image):
