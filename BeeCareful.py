@@ -132,13 +132,20 @@ def main():
                             plant.draw_plant(window,plant.position,zone_width,zone_height,plant_image_morte)
                     else:
                         if plant.get_isEating():
-                            if plant.get_couleurAbeille == 1:
+                            if plant.get_couleurAbeille() == 1:
                                 plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image_crous) # Draw plants
                             else:
                                 plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image_crous_pink) # Draw plants
                         else:
                             plant.draw_carni_plant(window,plant.position,zone_width,zone_height,carni_plant_image) # Draw plants
+        nbPink = 0
+        nbYellow = 0
         for bee in bees:
+            if bee.is_alive:
+                if bee.get_hive() == 1:
+                    nbYellow += 1
+                if bee.get_hive() == 2:
+                    nbPink += 1
             if(bee.is_alive):
                 if not(bee.isAtHive()):
                     if not(bee.isEnAlerte()):
@@ -161,10 +168,23 @@ def main():
         
         
         pygame.draw.rect(window, bandeau_color, [0, window_height , window_width, window_width + bandeau_height])
-        score_text_hive_1 = score_font.render(f"Score Hive 1: {hive_2.stored_pollen // 100}", True, (0, 0, 0))
-        score_text_hive_2 = score_font.render(f"Score Hive 2: {hive.stored_pollen // 100}", True, (0, 0, 0))
-        window.blit(score_text_hive_1, (5,window_height + bandeau_height - score_text_hive_2.get_height() ))  # Positionnez comme nécessaire
-        window.blit(score_text_hive_2, (window_width - score_text_hive_2.get_width() - 5, window_height + bandeau_height - score_text_hive_2.get_height() ))  # Positionnez comme nécessaire
+        score_text_hive_1 = score_font.render(f" {nbPink} # Score : {hive_2.stored_pollen // 100}", True, (0, 0, 0))
+        score_text_hive_2 = score_font.render(f" {nbYellow} # Score : {hive.stored_pollen // 100}", True, (0, 0, 0))
+        
+        temp_surface = pygame.Surface((window_width // 2,bandeau_height))
+        temp_surface.fill(bandeau_color)
+        temp_surface.blit(score_text_hive_1,(250,0))
+        temp_surface.blit(pink_bee_image,(192,-17))
+        
+        temp_surface_2 = pygame.Surface((window_width // 2,bandeau_height))
+        temp_surface_2.fill(bandeau_color)
+        temp_surface_2.blit(score_text_hive_2,(window_width // 2 - 450,0))
+        temp_surface_2.blit(bee_image,(window_width // 2 - 498,-5))
+        
+        
+        window.blit(temp_surface, (0,window_height + bandeau_height - score_text_hive_2.get_height() ))  # Positionnez comme nécessaire
+        window.blit(temp_surface_2, (window_width // 2, window_height + bandeau_height - score_text_hive_2.get_height() ))  # Positionnez comme nécessaire
+        
 
         pygame.display.flip()
 
