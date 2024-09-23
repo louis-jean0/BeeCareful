@@ -67,45 +67,45 @@ def main():
         bees.append(bee)
 
     # Loading images
-    bee_image = pygame.image.load('abeille.png')
+    bee_image = pygame.image.load('../images/abeille.png')
     bee_image = pygame.transform.scale(bee_image, (50,50))
     pygame.display.set_icon(bee_image)
 
-    bee_image_alerte = pygame.image.load('abeille_en_alerte.png')
+    bee_image_alerte = pygame.image.load('../images/abeille_en_alerte.png')
     bee_image_alerte = pygame.transform.scale(bee_image_alerte, (75,75))
     
-    pink_bee_image = pygame.image.load('pink_bee.png')
+    pink_bee_image = pygame.image.load('../images/pink_bee.png')
     pink_bee_image = pygame.transform.scale(pink_bee_image, (75,75))
 
-    pink_bee_image_alerte = pygame.image.load('pink_bee_alerte.png')
+    pink_bee_image_alerte = pygame.image.load('../images/pink_bee_alerte.png')
     pink_bee_image_alerte = pygame.transform.scale(pink_bee_image_alerte, (75,75))
 
-    plant_image = pygame.image.load('fleur.png')
+    plant_image = pygame.image.load('../images/fleur.png')
     plant_image = pygame.transform.scale(plant_image, (75,75))
     
-    plant_image_morte = pygame.image.load('fleur_morte.png')
+    plant_image_morte = pygame.image.load('../images/fleur_morte.png')
     plant_image_morte = pygame.transform.scale(plant_image_morte, (75,75))
 
-    carni_plant_image = pygame.image.load('plantecarnivore.png')
+    carni_plant_image = pygame.image.load('../images/plantecarnivore.png')
     carni_plant_image = pygame.transform.scale(carni_plant_image, (75,75))
 
-    carni_plant_image_crous = pygame.image.load('plantecarnivoreSadgeCrous.png')
+    carni_plant_image_crous = pygame.image.load('../images/plantecarnivoreSadgeCrous.png')
     carni_plant_image_crous = pygame.transform.scale(carni_plant_image_crous, (75,75))
 
-    carni_plant_image_crous_pink = pygame.image.load('plantecarnivoreSadgeCrous_pink.png')
+    carni_plant_image_crous_pink = pygame.image.load('../images/plantecarnivoreSadgeCrous_pink.png')
     carni_plant_image_crous_pink = pygame.transform.scale(carni_plant_image_crous_pink, (75,75))
 
-    hive_image = pygame.image.load('ruche.png')
+    hive_image = pygame.image.load('../images/ruche.png')
     hive_image = pygame.transform.scale(hive_image,(100,100))
     
-    hive_2_image = pygame.image.load('ruche_2.png')
+    hive_2_image = pygame.image.load('../images/ruche_2.png')
     hive_2_image = pygame.transform.scale(hive_2_image,(100,100))
 
-    background_image = pygame.image.load('grass.jpg')
+    background_image = pygame.image.load('../images/grass.jpg')
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
 
-    score_font = pygame.font.Font("Grand9K_Pixel.ttf", 30)
+    score_font = pygame.font.Font("../fonts/Grand9K_Pixel.ttf", 30)
     
 
     # Game loop
