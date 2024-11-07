@@ -18,7 +18,7 @@ Chacun de ces agents est soumis à un environnement, que vous pouvez retrouver [
 ### Cloner le dépôt
 
 ```bash
-git clone git@github.com:louis-jean0/PixelPatrol.git
+git clone git@github.com:louis-jean0/BeeCareful.git
 ```
 
 Pour exécuter ce projet, vous aurez besoin d'avoir Python 3 et `pygame` installés sur votre machine.
